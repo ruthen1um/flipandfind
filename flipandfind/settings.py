@@ -21,7 +21,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 SECRET_KEY = getenv("SECRET_KEY")
-DEBUG = bool(getenv("DEBUG", default=0))
+DEBUG = True if getenv("DEBUG") == "TRUE" else False
 ALLOWED_HOSTS = ["127.0.0.1"]
 
 
