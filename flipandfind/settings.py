@@ -20,8 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-SECRET_KEY = getenv("SECRET_KEY")
-DEBUG = True if getenv("DEBUG") == "TRUE" else False
+SECRET_KEY = getenv("DJANGO_SECRET_KEY")
+DEBUG = True if getenv("DJANGO_DEBUG") == "TRUE" else False
 ALLOWED_HOSTS = ["127.0.0.1"]
 
 
@@ -32,9 +32,9 @@ INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
-    'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sessions',
 ]
 
 MIDDLEWARE = [
