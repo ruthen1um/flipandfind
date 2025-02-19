@@ -1,6 +1,5 @@
-FROM python:3.13
+FROM python:3.13-slim
 
-RUN mkdir /app
 WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1
