@@ -5,6 +5,10 @@ services:
       - "8000:8000"
     env_file:
       - .env
+    networks:
+      - app_network
+    volumes:
+      - "db_data:/var/lib/mysql"
     depends_on:
       - db
   db:
@@ -13,6 +17,14 @@ services:
       - "3306:3306"
     environment:
       MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
-      MYSQL_DATABASE: ${DATABASE_NAME}
     env_file:
       - .env
+    networks:
+      - app_network
+
+networks:
+  app_network:
+    driver: bridge
+
+volumes:
+  db_data:

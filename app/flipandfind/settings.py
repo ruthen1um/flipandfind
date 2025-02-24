@@ -20,8 +20,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
-SECRET_KEY = getenv("DJANGO_SECRET_KEY")
-DEBUG = True if getenv("DJANGO_DEBUG") == "TRUE" else False
+SECRET_KEY = getenv("SECRET_KEY")
+DEBUG = True if getenv("DEBUG") == "TRUE" else False
 ALLOWED_HOSTS = ["localhost"]
 
 
@@ -73,12 +73,12 @@ WSGI_APPLICATION = 'flipandfind.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': f'django.db.backends.{getenv('DJANGO_DATABASE_ENGINE')}',
-        'NAME': getenv('DJANGO_DATABASE_NAME'),
-        'USER': getenv('DJANGO_DATABASE_USERNAME'),
-        'PASSWORD': getenv('DJANGO_DATABASE_PASSWORD'),
-        'HOST': getenv('DJANGO_DATABASE_HOST'),
-        'PORT': getenv('DJANGO_DATABASE_PORT'),
+        'ENGINE': f'django.db.backends.{getenv('DATABASE_ENGINE')}',
+        'NAME': getenv('DATABASE_NAME'),
+        'USER': getenv('DATABASE_USERNAME'),
+        'PASSWORD': getenv('DATABASE_PASSWORD'),
+        'HOST': getenv('DATABASE_HOST'),
+        'PORT': getenv('DATABASE_PORT'),
     }
 }
 

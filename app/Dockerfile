@@ -1,5 +1,12 @@
 FROM python:3.13-slim
 
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
+    python3-dev \
+    default-libmysqlclient-dev \
+    build-essential \
+    pkg-config
+
 WORKDIR /app
 
 ENV PYTHONDONTWRITEBYTECODE=1
