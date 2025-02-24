@@ -22,7 +22,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 SECRET_KEY = getenv("DJANGO_SECRET_KEY")
 DEBUG = True if getenv("DJANGO_DEBUG") == "TRUE" else False
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["localhost"]
 
 
 # Application definition
@@ -73,8 +73,12 @@ WSGI_APPLICATION = 'flipandfind.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': f'django.db.backends.{getenv('DJANGO_DATABASE_ENGINE')}',
+        'NAME': getenv('DJANGO_DATABASE_NAME'),
+        'USER': getenv('DJANGO_DATABASE_USERNAME'),
+        'PASSWORD': getenv('DJANGO_DATABASE_PASSWORD'),
+        'HOST': getenv('DJANGO_DATABASE_HOST'),
+        'PORT': getenv('DJANGO_DATABASE_PORT'),
     }
 }
 
@@ -127,4 +131,3 @@ MEDIA_URL = 'media/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-

@@ -5,3 +5,14 @@ services:
       - "8000:8000"
     env_file:
       - .env
+    depends_on:
+      - db
+  db:
+    image: "mysql:9"
+    ports:
+      - "3306:3306"
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DATABASE_PASSWORD}
+      MYSQL_DATABASE: ${DATABASE_NAME}
+    env_file:
+      - .env
