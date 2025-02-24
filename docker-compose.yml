@@ -21,6 +21,8 @@ services:
       - .env
     networks:
       - app_network
+    volumes:
+      - ".:/app"
 
 networks:
   app_network:
