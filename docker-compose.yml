@@ -9,6 +9,7 @@ services:
       - app_network
     volumes:
       - "./app:/app"
+      - "media:/media"
     depends_on:
       - db
   db:
@@ -30,3 +31,4 @@ networks:
 
 volumes:
   db_data:
+  media:
