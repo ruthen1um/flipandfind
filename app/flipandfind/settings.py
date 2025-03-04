@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from os import getenv
+from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,7 +22,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.1/howto/deployment/checklist/
 
 SECRET_KEY = getenv("SECRET_KEY")
-DEBUG = True if getenv("DEBUG") == "TRUE" else False
+
+if getenv("DEBUG") == "TRUE":
+    DEBUG = True
+elif getenv("DEBUG") == "FALSE":
+    DEBUG = False
+else:
+    raise ImproperlyConfigured("Environment variable 'DEBUG' does not exist "
+                               "or is not 'TRUE' or 'FALSE'")
+
 ALLOWED_HOSTS = ["localhost"]
 
 
