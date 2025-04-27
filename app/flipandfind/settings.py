@@ -12,7 +12,6 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 
 from pathlib import Path
 from os import getenv
-from django.core.exceptions import ImproperlyConfigured
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,11 +24,8 @@ SECRET_KEY = getenv("SECRET_KEY")
 
 if getenv("DEBUG") == "TRUE":
     DEBUG = True
-elif getenv("DEBUG") == "FALSE":
-    DEBUG = False
 else:
-    raise ImproperlyConfigured("Environment variable 'DEBUG' does not exist "
-                               "or is not 'TRUE' or 'FALSE'")
+    DEBUG = False
 
 ALLOWED_HOSTS = ["localhost"]
 
@@ -37,7 +33,7 @@ ALLOWED_HOSTS = ["localhost"]
 # Application definition
 
 INSTALLED_APPS = [
-    'website.apps.WebsiteConfig',
+    'store.apps.StoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -71,7 +67,7 @@ TEMPLATES = [
                 'django.contrib.messages.context_processors.messages',
 
                 # Add global context processor
-                'flipandfind.context_processors.global_context',
+                'store.context_processors.store',
             ],
         },
     },
@@ -143,3 +139,6 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom auth model
+AUTH_USER_MODEL = 'store.User'
