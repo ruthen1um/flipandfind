@@ -1,6 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db.models import Avg
 from .user import User
 
 
@@ -22,6 +23,23 @@ class Product(models.Model):
         on_delete=models.PROTECT,
         related_name='products',
     )
+
+    @property
+    def average_rating(self):
+        result = self.reviews.aggregate(average=Avg('rating'))
+        return result['average'] if result['average'] is not None else 0
+
+    @property
+    def reviews_count(self):
+        return self.reviews.count()
+
+    @property
+    def seller_username(self):
+        return self.seller.username
+
+    @property
+    def primary_photo(self):
+        return self.photos.filter(is_primary=True).first()
 
 
 class ProductPhoto(models.Model):

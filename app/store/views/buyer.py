@@ -1,9 +1,17 @@
 from django.shortcuts import render
 from django.http import HttpRequest
 
+from store.models.product import Product
+
 
 def catalog(request: HttpRequest):
-    return render(request, "buyer/catalog.html")
+    featured_products = Product.objects.all()
+    recommended_products = Product.objects.all()
+    context = {
+        'featured_products': featured_products,
+        'recommended_product': recommended_products,
+    }
+    return render(request, "buyer/catalog.html", context=context)
 
 
 def product(request: HttpRequest, id: int):

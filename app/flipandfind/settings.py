@@ -27,7 +27,7 @@ if getenv("DEBUG") == "TRUE":
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ["localhost"]
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition

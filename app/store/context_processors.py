@@ -1,5 +1,11 @@
+from datetime import datetime
+
+
 def store(request):
+    current_year = datetime.now().year
+    company_name = 'ООО "Матвейчик"'
     context = {
-        'COPYRIGHT_NOTICE': '© 2025 ООО "Матвейчик"'
+        'current_year': current_year,
+        'company_name': company_name
     }
     return context
