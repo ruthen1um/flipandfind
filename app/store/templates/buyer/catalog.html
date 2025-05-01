@@ -1,0 +1,55 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Главная</title>
+    <link rel="stylesheet" href="{% static 'buyer/css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'buyer/css/catalog.css' %}" />
+    <script src="{% static 'buyer/js/catalog.js' %}"></script>
+  </head>
+  <body>
+    {% include 'buyer/includes/_header.html' %}
+
+    <section class="products products--featured"> 
+      <h2 class="products__title">Выгодно</h2>
+      <div class="products__grid">
+      {% for product in featured_products %}
+        <div class="product-card">
+          <img src="{{ product.primary_photo }}" alt="{{ product.name }}">
+          <p class="product-card__price">{{ product.price }} p</p>
+          <p class="product-card__info">{{ product.seller_username }}/{{ product.name }}</p>
+          <p class="product-card__rating">{{ product.average_rating }} ⭐ {{ product.reviews_count }} отзывов</p>
+        </div>
+      {% endfor %}
+      </div>
+    </section>
+
+    <section class="products products--recommended">
+      <h2 class="products__title">Товары для вас</h2>
+      <div class="products__grid">
+      {% for product in recommended_products %}
+        <div class="product-card">
+          <img src="{{ product.primary_photo }}" alt="{{ product.name }}">
+          <p class="product-card__price">{{ product.price }} p</p>
+          <p class="product-card__info">{{ product.seller_username }}/{{ product.name }}</p>
+          <p class="product-card__rating">{{ product.average_rating }} ⭐ {{ product.reviews_count }} отзывов</p>
+        </div>
+      {% endfor %}
+      </div>
+    </section>
+
+    <section class="products products--recommended hidden" id="moreProducts">
+      <div class="products__grid">
+        <!-- Здесь будут клонированные карточки -->
+      </div>
+    </section>
+
+    <section class="show-more-container">
+      <button class="show-more-button">Показать еще</button>
+    </section>
+
+    {% include 'buyer/includes/_footer.html' %}
+  </body>
+</html>

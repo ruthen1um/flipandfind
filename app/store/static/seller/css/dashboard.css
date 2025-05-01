@@ -1,0 +1,86 @@
+.dashboard {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+.dashboard__section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+.dashboard__section-title {
+    font-size: 1.2em;
+    margin-bottom: 10px;
+}
+
+.dashboard__item {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.dashboard__item:last-child {
+    border-bottom: none;
+}
+
+.dashboard__item-value {
+    font-weight: bold;
+}
+
+.dashboard__data,
+.dashboard__warehouse .dashboard__data {
+    text-align: center;
+    padding: 10px;
+}
+
+.dashboard__increase,
+.dashboard__delivery .dashboard__value {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #28a745;
+}
+
+.dashboard__decrease {
+    color: #dc3545;
+    font-weight: bold;
+}
+
+.dashboard__position {
+    font-size: 2em;
+    font-weight: bold;
+}
+
+.dashboard__cost-share .dashboard__value {
+    font-size: 1.5em;
+    font-weight: bold;
+}
+
+.dashboard__description {
+    font-size: 0.9em;
+    color: #777;
+}
+
+.dashboard__warehouse .dashboard__data-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.dashboard__warehouse .dashboard__data .dashboard__value {
+    display: block;
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.dashboard__category {
+    font-size: 1em;
+    color: #333;
+    margin-top: 5px;
+}
