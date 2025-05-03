@@ -8,6 +8,13 @@ from .user import User
 class ProductCategory(models.Model):
     name = models.CharField(max_length=30)
 
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Категория товара'
+        verbose_name_plural = 'Категории товаров'
+
 
 class Product(models.Model):
     name = models.CharField(max_length=100)
@@ -23,6 +30,13 @@ class Product(models.Model):
         on_delete=models.PROTECT,
         related_name='products',
     )
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Товар'
+        verbose_name_plural = 'Товары'
 
     @property
     def average_rating(self):
@@ -51,6 +65,13 @@ class ProductPhoto(models.Model):
     photo = models.ImageField(upload_to='product_photos/')
     is_primary = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f'Фото товара {self.product.name}'
+
+    class Meta:
+        verbose_name = 'Категория товара'
+        verbose_name_plural = 'Категории товаров'
+
 
 class Review(models.Model):
     product = models.ForeignKey(
@@ -72,3 +93,11 @@ class Review(models.Model):
     )
     text = models.TextField()
     created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'Отзыв покупателя {self.buyer.username} на товар \
+                {self.product.name}'
+
+    class Meta:
+        verbose_name = 'Отзыв'
+        verbose_name_plural = 'Отзывы'

@@ -20,6 +20,13 @@ class User(AbstractUser):
     # Отчество может отсутствовать поэтому blank=True
     middle_name = models.CharField(max_length=30, blank=True)
 
+    def __str__(self):
+        return self.username
+
+    class Meta:
+        verbose_name = 'Пользователь'
+        verbose_name_plural = 'Пользователи'
+
 
 class BuyerProfile(models.Model):
     user = models.OneToOneField(
@@ -28,6 +35,13 @@ class BuyerProfile(models.Model):
     )
     phone = models.CharField(max_length=20, unique=True)
     card = models.OneToOneField('store.Card', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Профиль покупателя {self.user.username}'
+
+    class Meta:
+        verbose_name = 'Профиль покупателя'
+        verbose_name_plural = 'Профили покупателей'
 
 
 class SellerProfile(models.Model):
@@ -44,3 +58,10 @@ class SellerProfile(models.Model):
         default=0
     )
     card = models.OneToOneField('store.Card', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Профиль продавца {self.user.username}'
+
+    class Meta:
+        verbose_name = 'Профиль продавца'
+        verbose_name_plural = 'Профили продавцов'
