@@ -10,6 +10,13 @@ class Cart(models.Model):
         limit_choices_to={'role': User.Role.SELLER}
     )
 
+    def __str__(self):
+        return f'Корзина покупателя {self.buyer.username}'
+
+    class Meta:
+        verbose_name = 'Корзина'
+        verbose_name_plural = 'Корзины'
+
 
 class CartItem(models.Model):
     cart = models.ForeignKey(
@@ -19,6 +26,13 @@ class CartItem(models.Model):
     )
     product = models.ForeignKey('store.Product', on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=1)
+
+    def __str__(self):
+        return self.product.name
+
+    class Meta:
+        verbose_name = 'Товар в корзине'
+        verbose_name_plural = 'Товары в корзинах'
 
 
 class Order(models.Model):
@@ -31,6 +45,13 @@ class Order(models.Model):
     total_amount = models.PositiveIntegerField()
     is_paid = models.BooleanField(default=False)
 
+    def __str__(self):
+        return f'Заказ покупателя {self.buyer.username}'
+
+    class Meta:
+        verbose_name = 'Заказ'
+        verbose_name_plural = 'Заказы'
+
 
 class OrderItem(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE,
@@ -38,6 +59,13 @@ class OrderItem(models.Model):
     product = models.ForeignKey('store.Product', on_delete=models.PROTECT)
     quantity = models.PositiveIntegerField()
     price_at_purchase = models.PositiveIntegerField()
+
+    def __str__(self):
+        return self.product.name
+
+    class Meta:
+        verbose_name = 'Товар в заказе'
+        verbose_name_plural = 'Товары в заказах'
 
 
 class Delivery(models.Model):
@@ -57,4 +85,11 @@ class Delivery(models.Model):
     status = models.CharField(max_length=10, choices=DELIVERY_STATUS_CHOICES,
                               default='PAYMENT')
     tracking_number = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.tracking_number
+
+    class Meta:
+        verbose_name = 'Доставка'
+        verbose_name_plural = 'Доставки'
 
