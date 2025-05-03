@@ -17,7 +17,7 @@
       <div class="products__grid">
       {% for product in featured_products %}
         <div class="product-card">
-          <img src="{{ product.primary_photo }}" alt="{{ product.name }}">
+          <img src="{{ product.primary_photo.photo }}" alt="{{ product.name }}">
           <p class="product-card__price">{{ product.price }} p</p>
           <p class="product-card__info">{{ product.seller_username }}/{{ product.name }}</p>
           <p class="product-card__rating">{{ product.average_rating }} ⭐ {{ product.reviews_count }} отзывов</p>
@@ -31,7 +31,7 @@
       <div class="products__grid">
       {% for product in recommended_products %}
         <div class="product-card">
-          <img src="{{ product.primary_photo }}" alt="{{ product.name }}">
+          <img src="{{ product.primary_photo.photo }}" alt="{{ product.name }}">
           <p class="product-card__price">{{ product.price }} p</p>
           <p class="product-card__info">{{ product.seller_username }}/{{ product.name }}</p>
           <p class="product-card__rating">{{ product.average_rating }} ⭐ {{ product.reviews_count }} отзывов</p>
