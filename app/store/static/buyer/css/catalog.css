@@ -81,27 +81,3 @@
   text-align: left;
   margin: 5px 0;
 }
-
-
-/* SHOW MORE */
-.show-more-container {
-  text-align: center;
-  margin-bottom: 50px;
-}
-
-.show-more-button {
-  display: block;
-  margin: 0 auto;
-  background-color: #000000;
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  cursor: pointer;
-  border-radius: 10px;
-}
-
-
-/* HIDDEN SECTION */
-.hidden {
-  display: none;
-}
