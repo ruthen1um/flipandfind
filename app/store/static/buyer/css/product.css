@@ -149,16 +149,6 @@
     margin-right: 20px;
 }
 
-.product-page__sale {
-    color: red;
-    font-weight: bold;
-}
-
-.product-page__old-price {
-    text-decoration: line-through;
-    color: #777;
-}
-
 .product-page__rating {
     display: flex;
     align-items: flex-start;
@@ -246,42 +236,4 @@
     display: flex;
     overflow-x: auto;
     padding-bottom: 10px;
-}
-
-.similar-products__item {
-    flex: 0 0 auto;
-    width: 200px;
-    margin-right: 10px;
-    border: none;
-    border-radius: 5px;
-    padding: 10px;
-    text-align: left;
-}
-
-.similar-products__img {
-    max-width: 100%;
-    height: auto;
-    margin-bottom: 5px;
-}
-
-.similar-products__price {
-    color: #333;
-    font-weight: bold;
-}
-
-
-.similar-products__rating {
-    display: flex;
-    align-items: flex-start;
-    flex-direction: column;
-}
-
-.similar-products__star {
-    margin-right: 5px;
-    color: #777;
-}
-
-/* Скрытый блок */
-.cyber-sale {
-    display: none;
 }

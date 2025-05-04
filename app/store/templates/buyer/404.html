@@ -1,0 +1,16 @@
+{% extends 'buyer/base.html' %}
+{% load static %}
+{% block title %}{{ site_name }} - Страница не найдена{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'buyer/css/404.css' %}">
+{% endblock %}
+{% block content %}
+<div class="center-wrapper">
+  <div class="gray-box">
+    <h2>По вашему запросу ничего не найдено</h2>
+    <a href="{% url 'store_buyer:catalog' %}">
+      <button class="catalog-btn">Перейти в каталог</button>
+    </a>
+  </div>
+</div>
+{% endblock %}

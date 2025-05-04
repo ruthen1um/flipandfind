@@ -1,0 +1,8 @@
+<div class="product-card">
+  <a href="{% url 'store_buyer:product' product.id %}">
+    <img class="product-card__image" src="{{ product.primary_photo.url }}" alt="{{ product.name }}">
+  </a>
+  <p class="product-card__info">{{ product.seller_username }}/{{ product.name }}</p>
+  <p class="product-card__price">{{ product.price }} p</p>
+  <p class="product-card__rating">{{ product.average_rating }} ⭐ {{ product.reviews_count }} отзывов</p>
+</div>

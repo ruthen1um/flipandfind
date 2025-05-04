@@ -1,0 +1,38 @@
+.center-wrapper {
+    min-height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.gray-box {
+    background: rgba(217, 217, 217, 0.5);
+    padding: 48px 32px;
+    border-radius: 0;
+    text-align: center;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+}
+.gray-box h2 {
+    margin: 0 0 24px 0;
+    font-size: 24px;
+    font-weight: 600;
+    color: #111;
+    line-height: 1.2;
+}
+.catalog-btn {
+    background: #000;
+    color: #fff;
+    border: none;
+    padding: 12px 30px;
+    font-size: 18px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-family: inherit;
+    font-weight: 400;
+    margin-top: 10px;
+}
+.catalog-btn:hover {
+    background: #222;
+}

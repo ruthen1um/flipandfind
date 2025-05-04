@@ -1,25 +1,28 @@
-document.addEventListener('DOMContentLoaded', () => {
-    // Load More functionality
-    const loadMoreBtn = document.querySelector('.load-more-btn');
-    const hiddenProducts = document.querySelectorAll('.products-section.hidden');
+let currentPage = 1;
+let loading = false;
 
-    if(loadMoreBtn) {
-        loadMoreBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            hiddenProducts.forEach(section => {
-                section.classList.remove('hidden');
-            });
-            loadMoreBtn.style.display = 'none';
+function loadProducts(page) {
+    if (loading) return;
+    loading = true;
+
+    fetch(`/api/catalog/?page=${page}`)
+        .then(response => response.text())
+        .then(html => {
+            const grid = document.getElementsByClassName('products__grid')[1];
+            grid.innerHTML += html;
+            loading = false;
         });
-    }
+}
 
-    // Mobile Menu Toggle (добавьте иконку меню в HTML)
-    const mobileMenuToggle = document.querySelector('.mobile-menu-toggle');
-    const categoryMenu = document.querySelector('.category-menu');
+function handleScroll() {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const bodyHeight = document.body.scrollHeight;
 
-    if(mobileMenuToggle) {
-        mobileMenuToggle.addEventListener('click', () => {
-            categoryMenu.classList.toggle('active');
-        });
+    if (scrollTop + windowHeight >= bodyHeight - 500) {
+        loadProducts(currentPage + 1);
     }
-});
+}
+
+loadProducts(1);
+window.addEventListener('scroll', handleScroll);
