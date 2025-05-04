@@ -90,14 +90,8 @@ body {
     text-align: right;
 }
 
-.cart__sale-price {
-    color: red;
-    font-weight: bold;
+.cart__price {
     margin-right: 5px;
-}
-
-.cart__original-price {
-    text-decoration: line-through;
 }
 
 .summary__header {

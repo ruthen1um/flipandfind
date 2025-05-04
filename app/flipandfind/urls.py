@@ -16,8 +16,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
+from store.views import buyer
+from django.views.defaults import page_not_found
+
+
+def custom_404_handler(request, exception):
+    path = request.path
+
+    if not path.startswith('/seller/'):
+        return buyer.page_not_found(request, exception)
+
+    return page_not_found(request, exception)
+
+
+handler404 = custom_404_handler
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('store.urls')),
+    path('api/catalog/', buyer.catalog_api)
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,46 +1,24 @@
+{% extends 'buyer/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Главная</title>
-    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'buyer/css/main.css' %}" />
-    <link rel="stylesheet" href="{% static 'buyer/css/catalog.css' %}" />
-    <script src="{% static 'buyer/js/catalog.js' %}"></script>
-  </head>
-  <body>
-    {% include 'buyer/includes/_header.html' %}
-
-    <section class="products products--featured"> 
-      <h2 class="products__title">Выгодно</h2>
-      <div class="products__grid">
-      {% for product in featured_products %}
-        <div class="product-card">
-          <img src="{{ product.primary_photo.photo.url }}" alt="{{ product.name }}">
-          <p class="product-card__info">{{ product.seller_username }}/{{ product.name }}</p>
-          <p class="product-card__price">{{ product.price }} p</p>
-          <p class="product-card__rating">{{ product.average_rating }} ⭐ {{ product.reviews_count }} отзывов</p>
-        </div>
-      {% endfor %}
-      </div>
-    </section>
-
-    <section class="products products--recommended">
-      <h2 class="products__title">Товары для вас</h2>
-      <div class="products__grid">
-      {% for product in recommended_products %}
-        <div class="product-card">
-          <img src="{{ product.primary_photo.photo.url }}" alt="{{ product.name }}">
-          <p class="product-card__info">{{ product.seller_username }}/{{ product.name }}</p>
-          <p class="product-card__price">{{ product.price }} p</p>
-          <p class="product-card__rating">{{ product.average_rating }} ⭐ {{ product.reviews_count }} отзывов</p>
-        </div>
-      {% endfor %}
-      </div>
-    </section>
-
-    {% include 'buyer/includes/_footer.html' %}
-  </body>
-</html>
+{% block title %}{{ site_name }} - Каталог{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'buyer/css/catalog.css' %}" />
+<link rel="stylesheet" href="{% static 'buyer/css/product_card.css' %}" />
+{% endblock %}
+{% block extra_js %}
+<script src="{% static 'buyer/js/catalog.js' %}"></script>
+{% endblock %}
+{% block content %}
+<section class="products products--featured">
+  <h2 class="products__title">Выгодно</h2>
+  <div class="products__grid">
+    {% for product in featured_products %}
+      {% include 'buyer/_product_card.html' %}
+    {% endfor %}
+  </div>
+</section>
+<section class="products products--recommended">
+  <div class="products__grid">
+  </div>
+</section>
+{% endblock %}

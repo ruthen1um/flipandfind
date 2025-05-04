@@ -69,8 +69,12 @@ class ProductPhoto(models.Model):
         return f'Фото товара {self.product.name}'
 
     class Meta:
-        verbose_name = 'Категория товара'
-        verbose_name_plural = 'Категории товаров'
+        verbose_name = 'Фото'
+        verbose_name_plural = 'Фото'
+
+    @property
+    def url(self):
+        return self.photo.url
 
 
 class Review(models.Model):
