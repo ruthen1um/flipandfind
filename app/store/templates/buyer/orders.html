@@ -1,36 +1,28 @@
+{% extends 'buyer/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>История заказов</title>
-    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'buyer/css/main.css' %}" />
-    <link rel="stylesheet" href="{% static 'buyer/css/orders.css' %}" />
-  </head>
-  <body>
-    {% include 'buyer/includes/_header.html' %}
+{% block title %}{{ site_name }} - Заказы{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'buyer/css/orders.css' %}" />
+{% endblock %}
+{% block content %}
+<div class="container">
+  <aside class="sidebar">
+    <h2 class="sidebar__title">Главная</h2>
+    <ul class="sidebar__menu">
+      <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Все (0)</a></li>
+      <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Активные (0)</a></li>
+      <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Ожидают отправки (0)</a></li>
+      <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Отправленные (0)</a></li>
+      <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Ожидают отзыв (0)</a></li>
+      <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Завершенные (0)</a></li>
+    </ul>
+  </aside>
 
-    <div class="container">
-      <aside class="sidebar">
-        <h2 class="sidebar__title">Главная</h2>
-        <ul class="sidebar__menu">
-          <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Все (0)</a></li>
-          <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Активные (0)</a></li>
-          <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Ожидают отправки (0)</a></li>
-          <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Отправленные (0)</a></li>
-          <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Ожидают отзыв (0)</a></li>
-          <li class="sidebar__menu-item"><a href="#" class="sidebar__menu-link">Завершенные (0)</a></li>
-        </ul>
-      </aside>
-
-      <main class="content">
-        <h1 class="content__title">Ваша история заказов пуста</h1>
-        <button class="content__action-button">Купить сейчас</button>
-      </main>
-    </div>
-
-    {% include 'buyer/includes/_footer.html' %}
-  </body>
-</html>
+  <div class="content">
+    <h1 class="content__title">Ваша история заказов пуста</h1>
+    <a href="{% url 'store_buyer:catalog' %}">
+      <button class="content__action-button">Купить сейчас</button>
+    </a>
+  </div>
+</div>
+{% endblock %}

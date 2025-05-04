@@ -1,60 +1,44 @@
+{% extends 'buyer/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Корзина</title>
-    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'buyer/css/main.css' %}" />
-    <link rel="stylesheet" href="{% static 'buyer/css/cart.css' %}" />
-  </head>
-  <body>
-    {% include 'buyer/includes/_header.html' %}
+{% block title %}{{ site_name }} - Корзина{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'buyer/css/cart.css' %}">
+{% endblock %}
+{% block content %}
+<div class="wrapper">
+  <div class="cart">
+    <h2 class="cart__header">Корзина</h2>
+    <!-- TODO: add count -->
+    <p class="cart__subheader"></p>
 
-    <div class="wrapper">
-      <!-- Левая часть: Корзина -->
-      <div class="cart">
-        <h2 class="cart__header">Корзина</h2>
-        <p class="cart__subheader">1 товар</p>
-
-        <!-- Товар -->
-        <div class="cart__item">
-          <img src="{% static 'buyer/img/placeholder.jpg' %}" alt="Браслет" class="cart__item-image" />
-          <div class="cart__item-details">
-            <p class="cart__item-title">Силиконовый браслет SOLVANOV "Настоящий Волк"</p>
-            <p class="cart__item-color">Черный</p>
-            <p class="cart__item-date">27 января</p>
-          </div>
-          <div class="cart__item-actions">
-            <button class="cart__quantity-button">-</button>
-            <span class="cart__quantity">1</span>
-            <button class="cart__quantity-button">+</button>
-          </div>
-          <div class="cart__item-price">
-            Sale <span class="cart__sale-price">58₽</span>
-            <span class="cart__original-price">500₽</span>
-          </div>
-        </div>
+    <div class="cart__item">
+      <img src="{% static 'buyer/img/placeholder.jpg' %}" alt="Браслет" class="cart__item-image" />
+      <div class="cart__item-details">
+        <p class="cart__item-title">Силиконовый браслет SOLVANOV "Настоящий Волк"</p>
+        <p class="cart__item-color">Черный</p>
+        <p class="cart__item-date">27 января</p>
       </div>
-
-      <!-- Правая часть: Итог -->
-      <div class="summary">
-        <h3 class="summary__header">Выбрать адрес доставки</h3>
-        <p class="summary__item">Товар, 1 шт.: <span class="summary__price">500₽</span></p>
-        <p class="summary__item">Скидка: <span class="summary__price">-442₽</span></p>
-        <p class="summary__total">Итого: <span class="summary__price">58₽</span></p>
-
-        <!-- Кнопка заказа -->
-        <button class="summary__order-button">Заказать</button>
-
-        <!-- Согласие -->
-        <label class="summary__agreement">
-          <input type="checkbox" checked /> Соглашаюсь с правилами использования торговой площадкой и возврата
-        </label>
+      <div class="cart__item-actions">
+        <button class="cart__quantity-button">-</button>
+        <span class="cart__quantity">1</span>
+        <button class="cart__quantity-button">+</button>
+      </div>
+      <div class="cart__item-price">
+        <span class="cart__price">500₽</span>
       </div>
     </div>
+  </div>
 
-    {% include 'buyer/includes/_footer.html' %}
-  </body>
-</html>
+  <div class="summary">
+    <h3 class="summary__header">Выбрать адрес доставки</h3>
+    <p class="summary__item">Товар, 1 шт.: <span class="summary__price">500₽</span></p>
+    <p class="summary__total">Итого: <span class="summary__price">58₽</span></p>
+
+    <button class="summary__order-button">Заказать</button>
+
+    <label class="summary__agreement">
+      <input type="checkbox" checked /> Соглашаюсь с правилами использования торговой площадкой и возврата
+    </label>
+  </div>
+</div>
+{% endblock %}

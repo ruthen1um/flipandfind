@@ -1,0 +1,17 @@
+.product-card {
+    width: 20%;
+    box-sizing: border-box;
+}
+
+.product-card__image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 5px;
+}
+
+.product-card__price,
+.product-card__info,
+.product-card__rating,
+.product-card__name {
+    margin: 5px 0;
+}

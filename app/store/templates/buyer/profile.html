@@ -1,100 +1,89 @@
+{% extends 'buyer/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Личный кабинет</title>
-    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'buyer/css/main.css' %}" />
-    <link rel="stylesheet" href="{% static 'buyer/css/profile.css' %}" />
-    <script src="{% static 'buyer/js/profile.js' %}"></script>
-  </head>
-  <body>
-    {% include 'buyer/includes/_header.html' %}
+{% block title %}{{ site_name }} - Профиль{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'buyer/css/profile.css' %}" />
+{% endblock %}
+{% block content %}
+<div class="container">
+  <div class="container__title">Мои данные</div>
+  <div class="profile-sections">
+    <div class="profile-sections__item" onclick="goToAddress()">
+      <div class="profile-sections__name">Адрес</div>
+      <div class="profile-sections__text">
+        <p>Г. Москва Ул. Малыгина д...</p>
+      </div>
+    </div>
+    <div class="profile-sections__item" onclick="goToPurchases()">
+      <div class="profile-sections__name">Покупки</div>
+      <p class="profile-sections__action">Смотреть</p>
+    </div>
+  </div>
 
-    <div class="container">
-      <div class="container__title">Мои данные</div>
-      <div class="profile-sections">
-        <div class="profile-sections__item" onclick="goToAddress()">
-          <div class="profile-sections__name">Адрес</div>
-          <div class="profile-sections__text">
-            <p>Г. Москва Ул. Малыгина д...</p>
-          </div>
-        </div>
-        <div class="profile-sections__item" onclick="goToPurchases()">
-          <div class="profile-sections__name">Покупки</div>
-          <p class="profile-sections__action">Смотреть</p>
+  <div class="waiting-review">
+    <h3 class="waiting-review__title">Ждут отзыв:</h3>
+    <div class="waiting-review__list">
+      <div class="product-card">
+        <img class="product-card__image" src="/img/image-4.jpg" alt="БРАСЛЕТ мотоцепь" />
+        <div class="product-rating">
+          <input type="radio" id="star51" name="rating1" value="5" onclick="rateProduct(this, 5)" />
+          <label class="product-rating__star" for="star51">★</label>
+          <input type="radio" id="star41" name="rating1" value="4" onclick="rateProduct(this, 4)" />
+          <label class="product-rating__star" for="star41">★</label>
+          <input type="radio" id="star31" name="rating1" value="3" onclick="rateProduct(this, 3)" />
+          <label class="product-rating__star" for="star31">★</label>
+          <input type="radio" id="star21" name="rating1" value="2" onclick="rateProduct(this, 2)" />
+          <label class="product-rating__star" for="star21">★</label>
+          <input type="radio" id="star11" name="rating1" value="1" onclick="rateProduct(this, 1)" />
+          <label class="product-rating__star" for="star11">★</label>
         </div>
       </div>
-
-      <div class="waiting-review">
-        <h3 class="waiting-review__title">Ждут отзыв:</h3>
-        <div class="waiting-review__list">
-          <div class="product-card">
-            <img class="product-card__image" src="/img/image-4.jpg" alt="БРАСЛЕТ мотоцепь" />
-            <div class="product-rating">
-              <input type="radio" id="star51" name="rating1" value="5" onclick="rateProduct(this, 5)" />
-              <label class="product-rating__star" for="star51">★</label>
-              <input type="radio" id="star41" name="rating1" value="4" onclick="rateProduct(this, 4)" />
-              <label class="product-rating__star" for="star41">★</label>
-              <input type="radio" id="star31" name="rating1" value="3" onclick="rateProduct(this, 3)" />
-              <label class="product-rating__star" for="star31">★</label>
-              <input type="radio" id="star21" name="rating1" value="2" onclick="rateProduct(this, 2)" />
-              <label class="product-rating__star" for="star21">★</label>
-              <input type="radio" id="star11" name="rating1" value="1" onclick="rateProduct(this, 1)" />
-              <label class="product-rating__star" for="star11">★</label>
-            </div>
-          </div>
-          <div class="product-card">
-            <img class="product-card__image" src="/img/image-4.jpg" alt="Энергия и защита" />
-            <div class="product-rating">
-              <input type="radio" id="star52" name="rating2" value="5" onclick="rateProduct(this, 5)" />
-              <label class="product-rating__star" for="star52">★</label>
-              <input type="radio" id="star42" name="rating2" value="4" onclick="rateProduct(this, 4)" />
-              <label class="product-rating__star" for="star42">★</label>
-              <input type="radio" id="star32" name="rating2" value="3" onclick="rateProduct(this, 3)" />
-              <label class="product-rating__star" for="star32">★</label>
-              <input type="radio" id="star22" name="rating2" value="2" onclick="rateProduct(this, 2)" />
-              <label class="product-rating__star" for="star22">★</label>
-              <input type="radio" id="star12" name="rating2" value="1" onclick="rateProduct(this, 1)" />
-              <label class="product-rating__star" for="star12">★</label>
-            </div>
-          </div>
-          <div class="product-card">
-            <img class="product-card__image" src="/img/image-4.jpg" alt="БРАСЛЕТ талисман" />
-            <div class="product-rating">
-              <input type="radio" id="star53" name="rating3" value="5" onclick="rateProduct(this, 5)" />
-              <label class="product-rating__star" for="star53">★</label>
-              <input type="radio" id="star43" name="rating3" value="4" onclick="rateProduct(this, 4)" />
-              <label class="product-rating__star" for="star43">★</label>
-              <input type="radio" id="star33" name="rating3" value="3" onclick="rateProduct(this, 3)" />
-              <label class="product-rating__star" for="star33">★</label>
-              <input type="radio" id="star23" name="rating3" value="2" onclick="rateProduct(this, 2)" />
-              <label class="product-rating__star" for="star23">★</label>
-              <input type="radio" id="star13" name="rating3" value="1" onclick="rateProduct(this, 1)" />
-              <label class="product-rating__star" for="star13">★</label>
-            </div>
-          </div>
-          <div class="product-card">
-            <img class="product-card__image" src="/img/image-4.jpg" alt="БРАСЛЕТ ИЗ СТАЛИ" />
-            <div class="product-rating">
-              <input type="radio" id="star54" name="rating4" value="5" onclick="rateProduct(this, 5)" />
-              <label class="product-rating__star" for="star54">★</label>
-              <input type="radio" id="star44" name="rating4" value="4" onclick="rateProduct(this, 4)" />
-              <label class="product-rating__star" for="star44">★</label>
-              <input type="radio" id="star34" name="rating4" value="3" onclick="rateProduct(this, 3)" />
-              <label class="product-rating__star" for="star34">★</label>
-              <input type="radio" id="star24" name="rating4" value="2" onclick="rateProduct(this, 2)" />
-              <label class="product-rating__star" for="star24">★</label>
-              <input type="radio" id="star14" name="rating4" value="1" onclick="rateProduct(this, 1)" />
-              <label class="product-rating__star" for="star14">★</label>
-            </div>
-          </div>
+      <div class="product-card">
+        <img class="product-card__image" src="/img/image-4.jpg" alt="Энергия и защита" />
+        <div class="product-rating">
+          <input type="radio" id="star52" name="rating2" value="5" onclick="rateProduct(this, 5)" />
+          <label class="product-rating__star" for="star52">★</label>
+          <input type="radio" id="star42" name="rating2" value="4" onclick="rateProduct(this, 4)" />
+          <label class="product-rating__star" for="star42">★</label>
+          <input type="radio" id="star32" name="rating2" value="3" onclick="rateProduct(this, 3)" />
+          <label class="product-rating__star" for="star32">★</label>
+          <input type="radio" id="star22" name="rating2" value="2" onclick="rateProduct(this, 2)" />
+          <label class="product-rating__star" for="star22">★</label>
+          <input type="radio" id="star12" name="rating2" value="1" onclick="rateProduct(this, 1)" />
+          <label class="product-rating__star" for="star12">★</label>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-card__image" src="/img/image-4.jpg" alt="БРАСЛЕТ талисман" />
+        <div class="product-rating">
+          <input type="radio" id="star53" name="rating3" value="5" onclick="rateProduct(this, 5)" />
+          <label class="product-rating__star" for="star53">★</label>
+          <input type="radio" id="star43" name="rating3" value="4" onclick="rateProduct(this, 4)" />
+          <label class="product-rating__star" for="star43">★</label>
+          <input type="radio" id="star33" name="rating3" value="3" onclick="rateProduct(this, 3)" />
+          <label class="product-rating__star" for="star33">★</label>
+          <input type="radio" id="star23" name="rating3" value="2" onclick="rateProduct(this, 2)" />
+          <label class="product-rating__star" for="star23">★</label>
+          <input type="radio" id="star13" name="rating3" value="1" onclick="rateProduct(this, 1)" />
+          <label class="product-rating__star" for="star13">★</label>
+        </div>
+      </div>
+      <div class="product-card">
+        <img class="product-card__image" src="/img/image-4.jpg" alt="БРАСЛЕТ ИЗ СТАЛИ" />
+        <div class="product-rating">
+          <input type="radio" id="star54" name="rating4" value="5" onclick="rateProduct(this, 5)" />
+          <label class="product-rating__star" for="star54">★</label>
+          <input type="radio" id="star44" name="rating4" value="4" onclick="rateProduct(this, 4)" />
+          <label class="product-rating__star" for="star44">★</label>
+          <input type="radio" id="star34" name="rating4" value="3" onclick="rateProduct(this, 3)" />
+          <label class="product-rating__star" for="star34">★</label>
+          <input type="radio" id="star24" name="rating4" value="2" onclick="rateProduct(this, 2)" />
+          <label class="product-rating__star" for="star24">★</label>
+          <input type="radio" id="star14" name="rating4" value="1" onclick="rateProduct(this, 1)" />
+          <label class="product-rating__star" for="star14">★</label>
         </div>
       </div>
     </div>
-
-    {% include 'buyer/includes/_footer.html' %}
-  </body>
-</html>
+  </div>
+</div>
+{% endblock %}
