@@ -6,21 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}{{ site_name }}{% endblock %}</title>
     <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'buyer/css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'seller/css/main.css' %}">
     {% block extra_css %}{% endblock %}
   </head>
   <body>
-    <header class="header">
-      {% include 'buyer/_header.html' %}
-    </header>
+    <div class="page">
+      <header class="header">
+        {% include 'seller/_header.html' %}
+      </header>
 
-    <main class="main">
-      {% block content %}{% endblock %}
-    </main>
-
-    <footer class="footer">
-      {% include 'buyer/_footer.html' %}
-    </footer>
+      <main class="main">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
 
     {% block extra_js %}{% endblock %}
   </body>
