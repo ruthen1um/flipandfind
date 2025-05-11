@@ -1,0 +1,39 @@
+.page {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header Block */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 0;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+}
+
+/* Logo inside header */
+.header__logo {
+  margin-bottom: -10px;
+  font-weight: bold;
+}
+
+.header__logo img {
+  height: 40px;
+  width: auto;
+}
+
+/* Nav inside header */
+.header__nav {
+  display: flex;
+}
+
+/* Reusable nav link style */
+.nav__link {
+  text-decoration: none;
+  color: #555;
+  margin-left: 20px;
+  font-size: 1em;
+}
