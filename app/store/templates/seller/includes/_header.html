@@ -1,5 +1,8 @@
+{% load static %}
 <header class="header">
-  <div class="header__logo">Flip & Find</div>
+  <div class="header__logo">
+    <img src="{% static 'logo_inline.svg' %}">
+  </div>
   <nav class="header__nav">
     <a href="#" class="header__nav-link">Главная</a>
     <a href="#" class="header__nav-link">Товары и цены</a>
