@@ -1,7 +1,9 @@
 {% load static %}
 <header class="header">
   <div class="header__logo">
-    <img src="{% static 'logo_inline.svg' %}">
+    <a href="{% url 'store_seller:dashboard' %}">
+      <img src="{% static 'logo_inline.svg' %}">
+    </a>
   </div>
   <nav class="header__nav">
     <a href="#" class="header__nav-link">Главная</a>
