@@ -1,16 +1,25 @@
 from django.shortcuts import render, get_object_or_404
-from django.http import HttpRequest, HttpResponse, HttpResponseBadRequest
+from django.http import HttpRequest, JsonResponse
 from django.core.paginator import Paginator, EmptyPage
+from django.urls import reverse
 
 import random
 from store.models.product import Product
+
+PRODUCTS_PER_PAGE = 5
+MAX_FEATURED_PRODUCTS = 4
+MAX_SIMILAR_PRODUCTS = 5
 
 
 def catalog(request: HttpRequest):
     all_products = Product.objects.all()
 
-    featured_products = random.sample(
-        list(all_products), min(len(all_products), 6)) if all_products else []
+    featured_products = (
+        random.sample(
+            list(all_products),
+            min(len(all_products), MAX_FEATURED_PRODUCTS))
+        if all_products else []
+    )
 
     return render(request, 'buyer/catalog.html', {
         'featured_products': featured_products,
@@ -19,28 +28,38 @@ def catalog(request: HttpRequest):
 
 def catalog_api(request):
     page = request.GET.get('page')
-    page_size = 6
 
     if not page or not page.isdigit():
-        return HttpResponseBadRequest("Missing or invalid 'page' parameter")
+        return JsonResponse(
+            {'error': 'Missing or invalid "page" parameter'}, status=400)
 
     product_list = Product.objects.all()
-    paginator = Paginator(product_list, page_size)
+    paginator = Paginator(product_list, PRODUCTS_PER_PAGE)
 
     try:
         products_page = paginator.page(page)
     except EmptyPage:
-        return HttpResponse('')
+        return JsonResponse({'products': []})
 
-    html = ''
-    for product in products_page.object_list:
-        html += render(
-            request,
-            'buyer/_product_card.html',
-            {'product': product}
-        ).content.decode('utf-8')
+    # Serialize products manually (or use serializers if preferred)
+    products_data = [
+        {
+            'url': reverse('store_buyer:product', args=[product.id]),
+            'primary_photo_url': product.primary_photo.url
+            if product.primary_photo else None,
+            'name': product.name,
+            'seller_username': product.seller.username,
+            'price': str(product.price),
+            'average_rating': str(product.average_rating),
+            'reviews_count': product.reviews_count,
+        }
+        for product in products_page.object_list
+    ]
 
-    return HttpResponse(html)
+    return JsonResponse({
+        'products': products_data,
+        'has_next': products_page.has_next(),
+    })
 
 
 def product(request: HttpRequest, id: int):
@@ -49,7 +68,7 @@ def product(request: HttpRequest, id: int):
     similar_products = (
         Product.objects
         .filter(category=product.category)
-        .exclude(pk=product.pk)[:6]
+        .exclude(pk=product.pk)[:MAX_SIMILAR_PRODUCTS]
     )
 
     return render(request, "buyer/product.html", {

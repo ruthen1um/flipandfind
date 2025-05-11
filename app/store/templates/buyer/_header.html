@@ -1,48 +1,47 @@
 {% load static %}
-<header class="header">
-  <div class="header__topbar">
-    <div class="header__title"></div>
-    <nav class="header__nav">
-      <ul class="nav__list">
-        <li class="nav__item"><a href="#">Поддержка</a></li>
-        <li class="nav__item"><a href="#">Доставка</a></li>
-      </ul>
-    </nav>
-  </div>
-
-  <div class="header__midbar">
-    <div class="header__logo">
-      <span>Flip &</span>
-      <span>Find</span>
-    </div>
-    <div class="header__search">
-      <input type="text" placeholder="Поиск" />
-      <button class="search__button">Найти</button>
-    </div>
-    <nav class="header__user-nav">
-      <ul class="user-nav__list">
-        <li class="user-nav__item"><a href="{% url 'store_buyer:login' %}"><img src="{% static 'buyer/img/login.png' %}" alt="Войти" />Войти</a></li>
-        <li class="user-nav__item"><a href="{% url 'store_buyer:orders' %}"><img src="{% static 'buyer/img/orders.png' %}" alt="Мои заказы" />Мои заказы</a></li>
-        <li class="user-nav__item"><a href="{% url 'store_buyer:cart' %}"><img src="{% static 'buyer/img/cart.png' %}" alt="Корзина" />Корзина</a></li>
-      </ul>
-    </nav>
-  </div>
-
-  <nav class="header__category">
-    <ul class="category__list">
-      <li class="category__item"><a href="#"><strong>Каталог</strong></a></li>
-      <li class="category__item"><a href="#">Пк, Видео, гейминг</a></li>
-      <li class="category__item"><a href="#">Настольные игры и игрушки</a></li>
-      <li class="category__item"><a href="#">Хранение данных</a></li>
-      <li class="category__item"><a href="#">Часы</a></li>
-      <li class="category__item"><a href="#">3D принтеры</a></li>
-      <li class="category__item"><a href="#">Для мужчин</a></li>
-      <li class="category__item"><a href="#">Для девушек</a></li>
-      <li class="category__item"><a href="#">Красота</a></li>
-      <li class="category__item"><a href="#">Хобби и творчество</a></li>
-      <li class="category__item"><a href="#">Обувь</a></li>
-      <li class="category__item"><a href="#">Зоотовары</a></li>
-      <li class="category__item"><a href="#">Для дома</a></li>
+<div class="header-topbar">
+  <div class="header-topbar__title"></div>
+  <nav class="header-topbar__nav">
+    <ul class="nav__list">
+      <li class="nav__item"><a href="#">Поддержка</a></li>
+      <li class="nav__item"><a href="#">Доставка</a></li>
     </ul>
   </nav>
-</header>
+</div>
+
+<div class="header-midbar">
+  <div class="header-midbar__logo">
+    <a href="{% url 'store_buyer:catalog' %}">
+      <img src="{% static 'logo.svg' %}" alt="Логотип" />
+    </a>
+  </div>
+  <div class="header-midbar__search">
+    <input type="text" placeholder="Поиск" class="search__input" />
+    <button class="search__button">Найти</button>
+  </div>
+  <nav class="header-midbar__user-nav">
+    <ul class="user-nav__list">
+      <li class="user-nav__item"><a href="{% url 'store_buyer:login' %}"><img src="{% static 'buyer/img/login.png' %}" alt="Войти" />Войти</a></li>
+      <li class="user-nav__item"><a href="{% url 'store_buyer:orders' %}"><img src="{% static 'buyer/img/orders.png' %}" alt="Мои заказы" />Мои заказы</a></li>
+      <li class="user-nav__item"><a href="{% url 'store_buyer:cart' %}"><img src="{% static 'buyer/img/cart.png' %}" alt="Корзина" />Корзина</a></li>
+    </ul>
+  </nav>
+</div>
+
+<nav class="header-category-nav">
+  <ul class="category-nav__list">
+    <li class="category-nav__item category-nav__item--active"><a href="#">Каталог</a></li>
+    <li class="category-nav__item"><a href="#">Пк, Видео, гейминг</a></li>
+    <li class="category-nav__item"><a href="#">Настольные игры и игрушки</a></li>
+    <li class="category-nav__item"><a href="#">Хранение данных</a></li>
+    <li class="category-nav__item"><a href="#">Часы</a></li>
+    <li class="category-nav__item"><a href="#">3D принтеры</a></li>
+    <li class="category-nav__item"><a href="#">Для мужчин</a></li>
+    <li class="category-nav__item"><a href="#">Для девушек</a></li>
+    <li class="category-nav__item"><a href="#">Красота</a></li>
+    <li class="category-nav__item"><a href="#">Хобби и творчество</a></li>
+    <li class="category-nav__item"><a href="#">Обувь</a></li>
+    <li class="category-nav__item"><a href="#">Зоотовары</a></li>
+    <li class="category-nav__item"><a href="#">Для дома</a></li>
+  </ul>
+</nav>

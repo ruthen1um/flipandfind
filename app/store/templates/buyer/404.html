@@ -6,10 +6,10 @@
 {% endblock %}
 {% block content %}
 <div class="center-wrapper">
-  <div class="gray-box">
-    <h2>По вашему запросу ничего не найдено</h2>
-    <a href="{% url 'store_buyer:catalog' %}">
-      <button class="catalog-btn">Перейти в каталог</button>
+  <div class="not-found">
+    <h2 class="not-found__title">По вашему запросу ничего не найдено</h2>
+    <a href="{% url 'store_buyer:catalog' %}" class="not-found__link">
+      <button class="not-found__btn catalog-btn">Перейти в каталог</button>
     </a>
   </div>
 </div>

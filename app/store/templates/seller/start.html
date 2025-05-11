@@ -5,20 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Flip & Find</title>
-    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
+    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png">
     <link rel="stylesheet" href="{% static 'seller/css/main.css' %}">
     <link rel="stylesheet" href="{% static 'seller/css/start.css' %}">
   </head>
   <body>
     <div class="container">
-      <h1 class="title">Flip & Find</h1>
+      <h1 class="title">{{ site_name }}</h1>
       <div class="description-box">
         <p class="description-text">
-        За каждой продажей стоят люди, которые трудятся и создают свое дело. Это те, кто идет вперед, несмотря на трудности. Это те, кто движим идеей и стремлением изменить мир вокруг себя.
+          За каждой продажей стоят люди, которые трудятся и создают свое дело. Это те, кто идет
+          вперед, несмотря на трудности. Это те, кто движим идеей и стремлением изменить мир вокруг
+          себя.
         </p>
-        <button class="open-shop-btn">Открыть магазин</button>
+        <a href="{% url 'store_seller:login' %}">
+          <button class="open-shop-btn">Открыть магазин</button>
+        </a>
       </div>
-      <h2 class="motivation-text">Верь в себя не смотря ни на что</h2>
+      <h2 class="motivation-text">Верь в себя несмотря ни на что</h2>
     </div>
   </body>
 </html>

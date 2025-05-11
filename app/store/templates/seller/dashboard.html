@@ -1,83 +1,75 @@
+{% extends 'seller/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flip & Find - Dashboard</title>
-    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'seller/css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'seller/css/dashboard.css' %}">
-  </head>
-  <body>
-    {% include 'seller/includes/_header.html' %}
+{% block title %}{{ site_name }} - Панель управления{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'seller/css/dashboard.css' %}">
+{% endblock %}
+{% block content %}
+<div class="dashboard">
+  <section class="dashboard__section dashboard__communications">
+    <h2 class="dashboard__section-title">Коммуникации</h2>
+    <div class="dashboard__item">Сообщения <span class="dashboard__item-value">0</span></div>
+    <div class="dashboard__item">Отзывы <span class="dashboard__item-value">0</span></div>
+    <div class="dashboard__item">Вопросы <span class="dashboard__item-value">0</span></div>
+  </section>
 
-    <main class="dashboard">
-      <section class="dashboard__section dashboard__communications">
-        <h2 class="dashboard__section-title">Коммуникации</h2>
-        <div class="dashboard__item">Сообщения <span class="dashboard__item-value">0</span></div>
-        <div class="dashboard__item">Отзывы <span class="dashboard__item-value">0</span></div>
-        <div class="dashboard__item">Вопросы <span class="dashboard__item-value">0</span></div>
-      </section>
+  <section class="dashboard__section dashboard__rating">
+    <h2 class="dashboard__section-title">Рейтинг продавца</h2>
+    <div class="dashboard__item">Оценка товаров <span class="dashboard__item-value">5.0</span></div>
+    <div class="dashboard__item">Поставки без опозданий <span class="dashboard__item-value">53%</span></div>
+  </section>
 
-      <section class="dashboard__section dashboard__rating">
-        <h2 class="dashboard__section-title">Рейтинг продавца</h2>
-        <div class="dashboard__item">Оценка товаров <span class="dashboard__item-value">5.0</span></div>
-        <div class="dashboard__item">Поставки без опозданий <span class="dashboard__item-value">53%</span></div>
-      </section>
+  <section class="dashboard__section dashboard__sales-category">
+    <h2 class="dashboard__section-title">Продажи в категории</h2>
+    <div class="dashboard__data">
+      <span class="dashboard__increase">+2.2 %</span>
+      <span class="dashboard__description">Ваши продажи</span>
+    </div>
+    <div class="dashboard__data">
+      <span class="dashboard__decrease">-15.9 %</span>
+      <span class="dashboard__description">Продажи {{ site_name }}</span>
+    </div>
+  </section>
 
-      <section class="dashboard__section dashboard__sales-category">
-        <h2 class="dashboard__section-title">Продажи в категории</h2>
-        <div class="dashboard__data">
-          <span class="dashboard__increase">+2.2 %</span>
-          <span class="dashboard__description">Ваши продажи</span>
-        </div>
-        <div class="dashboard__data">
-          <span class="dashboard__decrease">-15.9 %</span>
-          <span class="dashboard__description">Продажи Flip&Find</span>
-        </div>
-      </section>
+  <section class="dashboard__section dashboard__delivery">
+    <h2 class="dashboard__section-title">Доставлено товаров</h2>
+    <div class="dashboard__data">
+      <span class="dashboard__value">45 789 Р</span>
+      <span class="dashboard__description">Текущий период</span>
+    </div>
+    <div class="dashboard__data">
+      <span class="dashboard__decrease">-7.4%</span>
+      <span class="dashboard__description">Прошлый период</span>
+    </div>
+  </section>
 
-      <section class="dashboard__section dashboard__delivery">
-        <h2 class="dashboard__section-title">Доставлено товаров</h2>
-        <div class="dashboard__data">
-          <span class="dashboard__value">45 789 Р</span>
-          <span class="dashboard__description">Текущий период</span>
-        </div>
-        <div class="dashboard__data">
-          <span class="dashboard__decrease">-7.4%</span>
-          <span class="dashboard__description">Прошлый период</span>
-        </div>
-      </section>
+  <section class="dashboard__section dashboard__competitive-position">
+    <h2 class="dashboard__section-title">Конкурентная позиция</h2>
+    <div class="dashboard__position">#31</div>
+    <div class="dashboard__description">Вы лучший в 7%</div>
+    <div class="dashboard__category">Аксессуары</div>
+  </section>
 
-      <section class="dashboard__section dashboard__competitive-position">
-        <h2 class="dashboard__section-title">Конкурентная позиция</h2>
-        <div class="dashboard__position">#31</div>
-        <div class="dashboard__description">Вы лучший в 7%</div>
-        <div class="dashboard__category">Аксессуары</div>
-      </section>
+  <section class="dashboard__section dashboard__cost-share">
+    <h2 class="dashboard__section-title">Доля расходов в обороте</h2>
+    <div class="dashboard__value">17 %</div>
+    <div class="dashboard__description">Текущий период</div>
+    <div class="dashboard__value">0%</div>
+    <div class="dashboard__description">Прошлый период</div>
+  </section>
 
-      <section class="dashboard__section dashboard__cost-share">
-        <h2 class="dashboard__section-title">Доля расходов в обороте</h2>
-        <div class="dashboard__value">17 %</div>
-        <div class="dashboard__description">Текущий период</div>
-        <div class="dashboard__value">0%</div>
-        <div class="dashboard__description">Прошлый период</div>
-      </section>
-
-      <section class="dashboard__section dashboard__warehouse">
-        <h2 class="dashboard__section-title">Размещено на складах</h2>
-        <div class="dashboard__data-container">
-          <div class="dashboard__data">
-            <span class="dashboard__value">0 P</span>
-            <span class="dashboard__description">Сегодня</span>
-          </div>
-          <div class="dashboard__data">
-            <span class="dashboard__value">0 P</span>
-            <span class="dashboard__description">Прогноз на 24.03</span>
-          </div>
-        </div>
-      </section>
-    </main>
-  </body>
-</html>
+  <section class="dashboard__section dashboard__warehouse">
+    <h2 class="dashboard__section-title">Размещено на складах</h2>
+    <div class="dashboard__data-container">
+      <div class="dashboard__data">
+        <span class="dashboard__value">0 P</span>
+        <span class="dashboard__description">Сегодня</span>
+      </div>
+      <div class="dashboard__data">
+        <span class="dashboard__value">0 P</span>
+        <span class="dashboard__description">Прогноз на 24.03</span>
+      </div>
+    </div>
+  </section>
+</div>
+{% endblock %}

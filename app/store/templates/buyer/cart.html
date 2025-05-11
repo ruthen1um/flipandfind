@@ -19,9 +19,9 @@
         <p class="cart__item-date">27 января</p>
       </div>
       <div class="cart__item-actions">
-        <button class="cart__quantity-button">-</button>
+        <button class="cart__quantity-button cart__quantity-button--minus">−</button>
         <span class="cart__quantity">1</span>
-        <button class="cart__quantity-button">+</button>
+        <button class="cart__quantity-button cart__quantity-button--plus">+</button>
       </div>
       <div class="cart__item-price">
         <span class="cart__price">500₽</span>
@@ -31,13 +31,14 @@
 
   <div class="summary">
     <h3 class="summary__header">Выбрать адрес доставки</h3>
-    <p class="summary__item">Товар, 1 шт.: <span class="summary__price">500₽</span></p>
+    <p class="summary__item summary__item--product-count">Товар, 1 шт.: <span class="summary__price">500₽</span></p>
     <p class="summary__total">Итого: <span class="summary__price">58₽</span></p>
 
     <button class="summary__order-button">Заказать</button>
 
     <label class="summary__agreement">
-      <input type="checkbox" checked /> Соглашаюсь с правилами использования торговой площадкой и возврата
+      <input type="checkbox" checked class="summary__agreement-checkbox" /> 
+      Соглашаюсь с правилами использования торговой площадкой и возврата
     </label>
   </div>
 </div>

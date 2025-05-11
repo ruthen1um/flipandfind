@@ -1,79 +1,68 @@
+{% extends 'seller/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Flip & Find</title>
-    <link rel="icon" href="{% static 'favicon.ico' %}" type="image/x-icon">
-    <link rel="stylesheet" href="{% static 'seller/css/main.css' %}">
-    <link rel="stylesheet" href="{% static 'seller/css/reviews.css' %}">
-  </head>
-  <body>
-    {% include 'seller/includes/_header.html' %}
+{% block title %}{{ site_name }} - Отзывы{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'seller/css/reviews.css' %}">
+{% endblock %}
+{% block content %}
+<div class="review">
+  <div class="review__info">
+    <div class="review__reviewer">
+      <i class="review__avatar"></i>
+      <span class="review__name">Иван Иваныч</span>
+    </div>
+    <div class="review__stars">⭐⭐⭐⭐☆</div>
+    <p class="review__comment">Достоинства: Спасибо за браслет хорошо упаковано...</p>
+  </div>
+  <img src="img/image-4.jpg" alt="Браслет" class="review__image">
+</div>
 
-    <main class="reviews">
-      <!-- Все отзывы с одинаковой структурой -->
-      <div class="review">
-        <div class="review__info">
-          <div class="review__reviewer">
-            <i class="review__avatar"></i>
-            <span class="review__name">Иван Иваныч</span>
-          </div>
-          <div class="review__stars">⭐⭐⭐⭐☆</div>
-          <p class="review__comment">Достоинства: Спасибо за браслет хорошо упаковано...</p>
-        </div>
-        <img src="img/image-4.jpg" alt="Браслет" class="review__image">
-      </div>
+<div class="review">
+  <div class="review__info">
+    <div class="review__reviewer">
+      <i class="review__avatar"></i>
+      <span class="review__name">Иван Иваныч</span>
+    </div>
+    <div class="review__stars">⭐⭐⭐⭐⭐</div>
+    <p class="review__comment">Сумка топ</p>
+  </div>
+  <img src="img/image-4.jpg" alt="Сумка" class="review__image">
+</div>
 
-      <!-- Остальные 4 отзыва -->
-      <div class="review">
-        <div class="review__info">
-          <div class="review__reviewer">
-            <i class="review__avatar"></i>
-            <span class="review__name">Иван Иваныч</span>
-          </div>
-          <div class="review__stars">⭐⭐⭐⭐⭐</div>
-          <p class="review__comment">Сумка топ</p>
-        </div>
-        <img src="img/image-4.jpg" alt="Сумка" class="review__image">
-      </div>
+<div class="review">
+  <div class="review__info">
+    <div class="review__reviewer">
+      <i class="review__avatar"></i>
+      <span class="review__name">Иван Иваныч</span>
+    </div>
+    <div class="review__stars">⭐⭐⭐☆☆</div>
+    <p class="review__comment">Доставка, как из Китая. Замучаешься ждать...</p>
+  </div>
+  <img src="img/image-4.jpg" alt="Браслет" class="review__image">
+</div>
 
-      <div class="review">
-        <div class="review__info">
-          <div class="review__reviewer">
-            <i class="review__avatar"></i>
-            <span class="review__name">Иван Иваныч</span>
-          </div>
-          <div class="review__stars">⭐⭐⭐☆☆</div>
-          <p class="review__comment">Доставка, как из Китая. Замучаешься ждать...</p>
-        </div>
-        <img src="img/image-4.jpg" alt="Браслет" class="review__image">
-      </div>
+<div class="review">
+  <div class="review__info">
+    <div class="review__reviewer">
+      <i class="review__avatar"></i>
+      <span class="review__name">Иван Иваныч</span>
+    </div>
+    <div class="review__stars">⭐⭐⭐⭐⭐</div>
+    <p class="review__comment">Хороший браслет, тяжёлый, увесистый...</p>
+  </div>
+  <img src="img/image-4.jpg" alt="Браслет" class="review__image">
+</div>
 
-      <div class="review">
-        <div class="review__info">
-          <div class="review__reviewer">
-            <i class="review__avatar"></i>
-            <span class="review__name">Иван Иваныч</span>
-          </div>
-          <div class="review__stars">⭐⭐⭐⭐⭐</div>
-          <p class="review__comment">Хороший браслет, тяжёлый, увесистый...</p>
-        </div>
-        <img src="img/image-4.jpg" alt="Браслет" class="review__image">
-      </div>
+<div class="review">
+  <div class="review__info">
+    <div class="review__reviewer">
+      <i class="review__avatar"></i>
+      <span class="review__name">Иван Иваныч</span>
+    </div>
+    <div class="review__stars">⭐⭐⭐⭐☆</div>
+    <p class="review__comment">Ну норм штука. Нравится. Качественная...</p>
+  </div>
 
-      <div class="review">
-        <div class="review__info">
-          <div class="review__reviewer">
-            <i class="review__avatar"></i>
-            <span class="review__name">Иван Иваныч</span>
-          </div>
-          <div class="review__stars">⭐⭐⭐⭐☆</div>
-          <p class="review__comment">Ну норм штука. Нравится. Качественная...</p>
-        </div>
-        <img src="img/image-4.jpg" alt="Браслет" class="review__image">
-      </div>
-    </main>
-  </body>
-</html>
+  <img src="img/image-4.jpg" alt="Браслет" class="review__image">
+</div>
+{% endblock %}
