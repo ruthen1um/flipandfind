@@ -1,9 +1,3 @@
-.reviews {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
-}
-
 .review {
     display: flex;
     align-items: flex-start;

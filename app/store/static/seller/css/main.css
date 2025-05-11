@@ -11,6 +11,12 @@ body {
     line-height: 1.6;
 }
 
+.page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
 .header {
     display: flex;
     justify-content: space-between;
@@ -21,7 +27,7 @@ body {
 }
 
 .header__logo {
-    font-size: 1.5em;
+    margin-bottom: -10px;
     font-weight: bold;
 }
 
@@ -29,7 +35,7 @@ body {
     display: flex;
 }
 
-.header__nav-link {
+.nav__link {
     text-decoration: none;
     color: #555;
     margin-left: 20px;
