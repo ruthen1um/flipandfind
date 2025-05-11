@@ -4,7 +4,8 @@
     justify-content: center;
     align-items: center;
 }
-.gray-box {
+
+.not-found {
     background: rgba(217, 217, 217, 0.5);
     padding: 48px 32px;
     border-radius: 0;
@@ -13,14 +14,20 @@
     max-width: 100%;
     box-sizing: border-box;
 }
-.gray-box h2 {
+
+.not-found__title {
     margin: 0 0 24px 0;
     font-size: 24px;
     font-weight: 600;
     color: #111;
     line-height: 1.2;
 }
-.catalog-btn {
+
+.not-found__link {
+    text-decoration: none;
+}
+
+.not-found__btn.catalog-btn {
     background: #000;
     color: #fff;
     border: none;
@@ -33,6 +40,7 @@
     font-weight: 400;
     margin-top: 10px;
 }
+
 .catalog-btn:hover {
     background: #222;
 }
