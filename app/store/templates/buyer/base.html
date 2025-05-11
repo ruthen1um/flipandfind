@@ -10,13 +10,17 @@
     {% block extra_css %}{% endblock %}
   </head>
   <body>
-    {% include 'buyer/_header.html' %}
+    <header class="header">
+      {% include 'buyer/_header.html' %}
+    </header>
 
-    <main>
+    <main class="main">
       {% block content %}{% endblock %}
     </main>
 
-    {% include 'buyer/_footer.html' %}
+    <footer class="footer">
+      {% include 'buyer/_footer.html' %}
+    </footer>
 
     {% block extra_js %}{% endblock %}
   </body>
