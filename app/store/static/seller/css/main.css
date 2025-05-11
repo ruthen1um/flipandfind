@@ -1,49 +1,12 @@
 * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
 body {
-    font-family: 'Segoe UI', system-ui, sans-serif;
-    background-color: #f9f9f9;
-    color: #333;
-    line-height: 1.6;
-}
-
-.page {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 0;
-    margin-bottom: 20px;
-    border-bottom: 1px solid #eee;
-}
-
-.header__logo {
-    margin-bottom: -10px;
-    font-weight: bold;
-}
-
-.header__nav {
-    display: flex;
-}
-
-.nav__link {
-    text-decoration: none;
-    color: #555;
-    margin-left: 20px;
-    font-size: 1em;
-}
-
-.container {
-    max-width: 1200px;
-    margin: 20px auto;
-    padding: 20px;
+  font-family: 'Arial';
+  background-color: #f9f9f9;
+  color: #333;
+  line-height: 1.6;
 }

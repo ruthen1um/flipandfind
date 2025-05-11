@@ -10,138 +10,93 @@
 {% endblock %}
 {% block content %}
 <div class="product-page">
+  <!-- Header -->
   <div class="product-page__header">
     <h2 class="product-page__title">{{ product.name }}</h2>
   </div>
+
+  <!-- Main Content -->
   <div class="product-page__main">
+
+    <!-- Left: Gallery -->
     <div class="product-gallery">
       <div class="product-gallery__image-wrapper">
         <img id="mainImage" class="product-gallery__main-image" src="{{ product.primary_photo.url }}" alt="Браслет силиконовый">
       </div>
+
       <div class="product-gallery__thumbnails">
-      {% for photo in product.photos.all %}
+        {% for photo in product.photos.all %}
         <img src="{{ photo.url }}"
              alt="Миниатюра {{ forloop.counter }}"
              onclick="changeImage(this)"
              class="product-gallery__thumbnail{% if photo.is_primary %} product-gallery__thumbnail--active{% endif %}">
-      {% endfor %}
+        {% endfor %}
       </div>
     </div>
+
+    <!-- Right: Product Info -->
     <div class="product-info">
       <h2 class="product-info__heading">Описание товара</h2>
       <ul class="product-info__list">
+        {% for line in product.description_lines %}
+          {% if line %}
+            <li class="product-info__item">{{ line }}</li>
+          {% endif %}
+        {% endfor %}
         <li class="product-info__item">Артикул: {{ product.pk }}</li>
-        <li class="product-info__item">{{ product.description|linebreaks }}</li>
         <li class="product-info__item">Осталось на складе: {{ product.quantity }} шт</li>
-        <!-- <li class="product-info__item">Количество предметов в упаковке: 1 (шт)</li> -->
-        <!-- <li class="product-info__item">Состав бижутерии: Силикон</li> -->
-        <!-- <li class="product-info__item">Вид замка: без замка</li> -->
-        <!-- <li class="product-info__item">Декоративные элементы: гравировка</li> -->
-        <!-- <li class="product-info__item">Особенности модели: гипоаллергенный материал</li> -->
-        <!-- <li class="product-info__item">Страна производства: Россия</li> -->
       </ul>
-      <!-- <h3 class="product-info__subheading">Габариты</h3> -->
-      <!-- <ul class="product-info__list"> -->
-      <!--   <li class="product-info__item">Длина предмета: <span id="length-value">21</span> см</li> -->
-      <!--   <li class="product-info__item">Ширина предмета: <span id="width-value">6.5</span> см</li> -->
-      <!-- </ul> -->
-      <!---->
-      <!-- <h3 class="product-info__subheading">Таблица размеров</h3> -->
-      <!-- <div class="product-info__sizes"> -->
-      <!--   <span class="product-info__size product-info__size--active" data-size="21">21</span> -->
-      <!--   <span class="product-info__size" data-size="22">22</span> -->
-      <!-- </div> -->
+
+      <!-- Cart Button -->
+      <button class="product-info__cart-btn">В корзину</button>
     </div>
   </div>
 
+  <!-- Bottom Section -->
   <div class="product-page__bottom">
     <div class="product-page__price-rating">
       <div class="product-page__price">
-        <span class="product-page__price">Цена: {{ product.price }} р</span>
+        <span>Цена: {{ product.price }} р</span>
       </div>
       <div class="product-page__rating">
         <span>{{ product.average_rating }} ⭐ Оценок: {{ product.reviews_count }}</span>
       </div>
     </div>
-    <button class="product-page__cart-btn">В корзину</button>
     <span class="cart-count" style="display: none;"></span>
   </div>
 
+  <!-- Reviews & Questions Tabs -->
   <div class="product-page__reviews-questions">
     <div class="product-tabs">
       <button class="product-tabs__tab product-tabs__tab--active" onclick="openTab('reviews', event)">Отзывы</button>
       <button class="product-tabs__tab" onclick="openTab('questions', event)">Вопросы</button>
     </div>
+
     <div id="reviews" class="product-tabs__content product-tabs__content--active">
-    {% for review in product.reviews.all %}
+      {% for review in product.reviews.all %}
       <div class="product-review">
         <div class="product-review__author">
-          {{ review.buyer.first_name }}<span class="product-review__date">{{ review.created_at|date:"d/m/Y" }}</span>
+          {{ review.buyer.first_name }}
+          <span class="product-review__date">{{ review.created_at|date:"d/m/Y" }}</span>
         </div>
         <div class="product-review__rating">{{ review.rating }} ⭐</div>
         <div class="product-review__comment">{{ review.text }}</div>
       </div>
-    {% endfor %}
+      {% endfor %}
     </div>
+
     <div id="questions" class="product-tabs__content">
-      <!-- <div class="product-review"> -->
-      <!--   <div class="product-review__author">Вопрос от пользователя <span class="product-review__date">21 января</span></div> -->
-      <!--   <div class="product-review__comment">Когда будет новое поступление?</div> -->
-      <!-- </div> -->
+      <!-- EMPTY -->
     </div>
   </div>
 
+  <!-- Similar Products -->
   <div class="similar-products">
     <h2 class="similar-products__title">Похожие товары</h2>
     <div class="similar-products__list">
       {% for product in similar_products %}
         {% include 'buyer/_product_card.html' %}
       {% endfor %}
-      <!-- <div class="similar-products__item"> -->
-      <!--   <img src="/img/image-4.jpg" alt="Похожий товар 1" class="similar-products__img"> -->
-      <!--   <div class="similar-products__price">Sale 2200p</div> -->
-      <!--   <div class="similar-products__old-price">12000p</div> -->
-      <!--   <div class="similar-products__rating"> -->
-      <!--     <span class="similar-products__star">⭐ 4.9</span> -->
-      <!--     <span>Оценок: 2333</span> -->
-      <!--   </div> -->
-      <!-- </div> -->
-      <!-- <div class="similar-products__item"> -->
-      <!--   <img src="/img/image-4.jpg" alt="Похожий товар 2" class="similar-products__img"> -->
-      <!--   <div class="similar-products__price">Sale 182p</div> -->
-      <!--   <div class="similar-products__old-price">399p</div> -->
-      <!--   <div class="similar-products__rating"> -->
-      <!--     <span class="similar-products__star">⭐ 4.8</span> -->
-      <!--     <span>Оценок: 4000</span> -->
-      <!--   </div> -->
-      <!-- </div> -->
-      <!-- <div class="similar-products__item"> -->
-      <!--   <img src="/img/image-4.jpg" alt="Похожий товар 3" class="similar-products__img"> -->
-      <!--   <div class="similar-products__price">Sale 1724p</div> -->
-      <!--   <div class="similar-products__old-price">6500p</div> -->
-      <!--   <div class="similar-products__rating"> -->
-      <!--     <span class="similar-products__star">⭐ 4.9</span> -->
-      <!--     <span>Оценок: 2500</span> -->
-      <!--   </div> -->
-      <!-- </div> -->
-      <!-- <div class="similar-products__item"> -->
-      <!--   <img src="/img/image-4.jpg" alt="Похожий товар 4" class="similar-products__img"> -->
-      <!--   <div class="similar-products__price">Sale 722p </div> -->
-      <!--   <div class="similar-products__old-price">6400p</div> -->
-      <!--   <div class="similar-products__rating"> -->
-      <!--     <span class="similar-products__star">⭐ 4.7</span> -->
-      <!--     <span>Оценок: 84033</span> -->
-      <!--   </div> -->
-      <!-- </div> -->
-      <!-- <div class="similar-products__item"> -->
-      <!--   <img src="/img/image-4.jpg" alt="Похожий товар 5" class="similar-products__img"> -->
-      <!--   <div class="similar-products__price">Sale 367p</div> -->
-      <!--   <div class="similar-products__old-price">8400p</div> -->
-      <!--   <div class="similar-products__rating"> -->
-      <!--     <span class="similar-products__star">⭐ 4.9</span> -->
-      <!--     <span>Оценок: 57030</span> -->
-      <!--   </div> -->
-      <!-- </div> -->
     </div>
   </div>
 </div>

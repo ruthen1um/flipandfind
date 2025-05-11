@@ -55,6 +55,10 @@ class Product(models.Model):
     def primary_photo(self):
         return self.photos.filter(is_primary=True).first()
 
+    @property
+    def description_lines(self):
+        return self.description.splitlines()
+
 
 class ProductPhoto(models.Model):
     product = models.ForeignKey(

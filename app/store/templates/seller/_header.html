@@ -1,15 +1,16 @@
 {% load static %}
 <div class="header__logo">
   <a href="{% url 'store_seller:dashboard' %}">
-    <img src="{% static 'logo_inline.svg' %}">
+    <img src="{% static 'logo_inline.svg' %}" alt="Логотип">
   </a>
 </div>
-<nav class="nav header__nav">
-  <a href="#" class="nav__link">Главная</a>
+
+<nav class="header__nav">
+  <a href="{% url 'store_seller:dashboard' %}" class="nav__link">Главная</a>
   <a href="#" class="nav__link">Товары и цены</a>
   <a href="#" class="nav__link">Финансы</a>
   <a href="#" class="nav__link">Аналитика</a>
   <a href="#" class="nav__link">Реклама</a>
   <a href="#" class="nav__link">Маркетинг</a>
-  <a href="#" class="nav__link">Отзывы</a>
+  <a href="{% url 'store_seller:reviews' %}" class="nav__link">Отзывы</a>
 </nav>
