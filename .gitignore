@@ -259,3 +259,6 @@ poetry.toml
 
 # LSP config files
 pyrightconfig.json
+
+# Docker compose developer configuration
+compose.dev.yml
