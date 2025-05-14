@@ -27,38 +27,55 @@ def catalog(request: HttpRequest):
 
 
 def catalog_api(request):
-    page = request.GET.get('page')
+    page = request.GET.get('page', '1')
 
-    if not page or not page.isdigit():
-        return JsonResponse(
-            {'error': 'Missing or invalid "page" parameter'}, status=400)
+    if not page.isdigit():
+        return JsonResponse({'error': 'Invalid page number'}, status=400)
+    
+    # --- Step 1: Get all product IDs ---
+    all_product_ids = list(Product.objects.values_list('id', flat=True))
 
-    product_list = Product.objects.all()
-    paginator = Paginator(product_list, PRODUCTS_PER_PAGE)
+    # --- Step 2: Generate or reuse a shuffled list ---
+    session = request.session
+
+    # If this is a new visit or reload, regenerate the shuffled list
+    if 'current_shuffle' not in session:
+        shuffled_ids = all_product_ids[:]
+        random.shuffle(shuffled_ids)
+        session['current_shuffle'] = shuffled_ids
+        session.save()
+    else:
+        shuffled_ids = session['current_shuffle']
+
+    # --- Step 3: Paginate the consistent shuffled list ---
+    paginator = Paginator(shuffled_ids, PRODUCTS_PER_PAGE)
 
     try:
-        products_page = paginator.page(page)
+        page_obj = paginator.page(int(page))
     except EmptyPage:
-        return JsonResponse({'products': []})
+        return JsonResponse({'products': [], 'has_next': False})
 
-    # Serialize products manually (or use serializers if preferred)
-    products_data = [
-        {
+    # --- Step 4: Load only current page's products from DB ---
+    products_on_page = Product.objects.filter(id__in=page_obj.object_list).in_bulk()
+
+    # --- Step 5: Build response in correct order ---
+    products_data = []
+    for pid in page_obj.object_list:
+        product = products_on_page[pid]
+        products_data.append({
             'url': reverse('store_buyer:product', args=[product.id]),
-            'primary_photo_url': product.primary_photo.url
-            if product.primary_photo else None,
+            'primary_photo_url': product.primary_photo.url if product.primary_photo else None,
             'name': product.name,
             'seller_username': product.seller.username,
             'price': str(product.price),
             'average_rating': str(product.average_rating),
             'reviews_count': product.reviews_count,
-        }
-        for product in products_page.object_list
-    ]
+        })
 
     return JsonResponse({
         'products': products_data,
-        'has_next': products_page.has_next(),
+        'has_next': page_obj.has_next(),
+        'total_pages': paginator.num_pages
     })
 
 
