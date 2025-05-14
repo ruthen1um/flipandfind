@@ -6,7 +6,7 @@ from django.urls import reverse
 import random
 from store.models.product import Product
 
-PRODUCTS_PER_PAGE = 5
+PRODUCTS_PER_PAGE = 30
 MAX_FEATURED_PRODUCTS = 4
 MAX_SIMILAR_PRODUCTS = 5
 
