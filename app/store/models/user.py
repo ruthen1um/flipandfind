@@ -5,6 +5,9 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class User(AbstractUser):
+    REQUIRED_FIELDS = []
+    USERNAME_FIELD = 'email'
+
     class Role(models.TextChoices):
         BUYER = 'BUYER', 'Buyer'
         SELLER = 'SELLER', 'Seller'
@@ -14,6 +17,8 @@ class User(AbstractUser):
         choices=Role.choices,
         default=Role.BUYER
     )
+
+    email = models.EmailField(unique=True)
 
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)

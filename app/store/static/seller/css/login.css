@@ -55,7 +55,8 @@
   margin-bottom: 0; /* Убираем старый отступ */
 }
 
-.login-form__phone-input {
+.login-form__password-input,
+.login-form__email-input {
   width: 100%;
   padding: 14px 20px;
   font-size: 1rem;
@@ -64,13 +65,15 @@
   transition: border-color 0.3s ease;
 }
 
-.login-form__phone-input:focus {
+.login-form__password-input:focus,
+.login-form__email-input:focus {
   border-color: #007bff;
   outline: none;
   padding-left: 20px;
 }
 
-.login-form__phone-input::placeholder {
+.login-form__password-input::placeholder,
+.login-form__email-input::placeholder {
   color: #9e9e9e;
 
 }
