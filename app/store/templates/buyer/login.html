@@ -6,12 +6,42 @@
 {% endblock %}
 {% block content %}
 <div class="login">
-  <h2 class="login__title">Войти или создать профиль</h2>
-  <input class="login__input" type="tel" placeholder="Тел. +7 000 000 00 00">
-  <button class="login__button">Получить код</button>
-  <div class="login__terms">
-    <input class="login__terms-checkbox" type="checkbox" id="termsCheckbox">
-    <label class="login__terms-label" for="termsCheckbox">Соглашаюсь с правилами пользования торговой площадкой и возврата</label>
+  <div class="login-form">
+    <h2 class="login-form__description">Введите почту и пароль, чтобы войти</h2>
+
+    <form class="login-form__form" method="post">
+      {% csrf_token %}
+
+      <div class="login-form__input-group">
+        <input
+          type="email"
+          id="email"
+          name="email"
+          class="login-form__email-input"
+          placeholder="Почта"
+          required
+        />
+      </div>
+      <div class="login-form__input-group">
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="login-form__password-input"
+          placeholder="Пароль"
+          required
+        />
+      </div>
+
+      <button type="submit" class="login-form__submit-btn">Войти</button>
+    </form>
+
+    {% if error %}
+    <div class="login-form__error-box">
+      {{ error }}
+    </div>
+    {% endif %}
+
   </div>
 </div>
 {% endblock %}

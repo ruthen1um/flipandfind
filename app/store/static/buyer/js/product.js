@@ -21,48 +21,72 @@ function openTab(tabName) {
     event.currentTarget.classList.add('product-tabs__tab--active');
 }
 
-// Размеры товара
+// Корзина: добавление товара
 document.addEventListener('DOMContentLoaded', () => {
-    const baseLength = 21;
-    const baseWidth = 6.5;
-    const lengthElem = document.getElementById('length-value');
-    const widthElem = document.getElementById('width-value');
+    const cartButton = document.querySelector('.product-info__cart-btn');
+    const cartCounters = document.querySelectorAll('.user-nav__cart-counter');
 
-    document.querySelectorAll('.product-info__size').forEach(item => {
-        item.addEventListener('click', () => {
-            document.querySelectorAll('.product-info__size')
-                .forEach(i => i.classList.remove('product-info__size--active'));
+    if (!cartButton) return;
 
-            item.classList.add('product-info__size--active');
+    const productId = cartButton.dataset.productId;
 
-            const selectedSize = parseFloat(item.dataset.size);
-            const scale = selectedSize / baseLength;
+    cartButton.addEventListener('click', (event) => {
+        // If already "Перейти в корзину", just redirect
+        if (cartButton.textContent.trim() === 'Перейти в корзину') {
+            window.location.href = '/cart';
+            return;
+        }
 
-            lengthElem.textContent = (baseLength * scale).toFixed(1);
-            widthElem.textContent = (baseWidth * scale).toFixed(1);
+        // Prevent double clicks
+        if (cartButton.classList.contains('adding')) return;
+        cartButton.classList.add('adding');
+
+        fetch(`/api/cart/add/${productId}/`, {
+            method: 'POST',
+            headers: {
+                'X-CSRFToken': getCookie('csrftoken'),
+                'Content-Type': 'application/x-www-form-urlencoded'
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'ok') {
+                // Update cart counters
+                cartCounters.forEach(counter => {
+                    let count = parseInt(counter.textContent || '0');
+                    counter.textContent = count + 1;
+                    counter.classList.add('bounce');
+                    setTimeout(() => counter.classList.remove('bounce'), 300);
+                });
+
+                // Change button text
+                cartButton.textContent = 'Перейти в корзину';
+            } else {
+                alert('Не удалось добавить товар в корзину.');
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('Произошла ошибка при добавлении товара в корзину.');
+        })
+        .finally(() => {
+            cartButton.classList.remove('adding');
         });
     });
 });
 
-// Корзина
-document.addEventListener('DOMContentLoaded', () => {
-    const cartButton = document.querySelector('.product-page__cart-btn');
-    const cartCounters = document.querySelectorAll('.user-nav__cart-counter');
-
-    let cartCount = 0;
-
-    cartButton.addEventListener('click', () => {
-        if (cartButton.textContent.trim() === 'В корзину') {
-            cartCount++;
-            cartCounters.forEach(counter => {
-                counter.textContent = cartCount;
-                counter.classList.add('bounce');
-                setTimeout(() => counter.classList.remove('bounce'), 300);
-            });
-            cartButton.textContent = 'Перейти в корзину';
-        } else {
-            window.location.href = '/cart';
+// Helper function to get CSRF token
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
         }
-    });
-});
-
+    }
+    return cookieValue;
+}

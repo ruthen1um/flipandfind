@@ -36,7 +36,10 @@ handler404 = custom_404_handler
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('store.urls')),
-    path('api/catalog/', buyer.catalog_api)
+    path('api/catalog/', buyer.api_catalog),
+    path('api/cart/add/<int:product_id>/', buyer.api_add_to_cart),
+    path('api/cart/remove/<int:product_id>/', buyer.api_remove_from_cart),
+    path('api/cart/update/<int:product_id>/', buyer.api_update_quantity),
 ]
 
 if settings.DEBUG:

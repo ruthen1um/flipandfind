@@ -21,7 +21,7 @@
     <!-- Left: Gallery -->
     <div class="product-gallery">
       <div class="product-gallery__image-wrapper">
-        <img id="mainImage" class="product-gallery__main-image" src="{{ product.primary_photo.url }}" alt="Браслет силиконовый">
+        <img id="mainImage" class="product-gallery__main-image" src="{{ product.primary_photo.url }}" alt="Главная миниатюра">
       </div>
 
       <div class="product-gallery__thumbnails">
@@ -47,8 +47,7 @@
         <li class="product-info__item">Осталось на складе: {{ product.quantity }} шт</li>
       </ul>
 
-      <!-- Cart Button -->
-      <button class="product-info__cart-btn">В корзину</button>
+      <button class="product-info__cart-btn" data-product-id="{{ product.id }}">В корзину</button>
     </div>
   </div>
 

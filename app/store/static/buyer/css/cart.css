@@ -107,10 +107,18 @@ body {
   font-size: 16px;
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 
-.summary__item--product-count {
-  /* Optional modifier for future use */
+.summary__item > span:first-child {
+  flex: 1;
+  min-width: 120px;
+  text-align: left;
+}
+
+.summary__item > span:last-child, .summary__price {
+  text-align: right;
+  font-weight: bold;
 }
 
 .summary__total {

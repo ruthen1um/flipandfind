@@ -21,7 +21,11 @@
   </div>
   <nav class="header-midbar__user-nav">
     <ul class="user-nav__list">
-      <li class="user-nav__item"><a href="{% url 'store_buyer:login' %}"><img src="{% static 'buyer/img/login.png' %}" alt="Войти" />Войти</a></li>
+      {% if request.user.is_authenticated %}
+        <li class="user-nav__item"><a href="{% url 'store_buyer:profile' %}"><img src="{% static 'buyer/img/login.png' %}" alt="Профиль" />Профиль</a></li>
+      {% else %}
+        <li class="user-nav__item"><a href="{% url 'store_buyer:login' %}"><img src="{% static 'buyer/img/login.png' %}" alt="Войти" />Войти</a></li>
+      {% endif %}
       <li class="user-nav__item"><a href="{% url 'store_buyer:orders' %}"><img src="{% static 'buyer/img/orders.png' %}" alt="Мои заказы" />Мои заказы</a></li>
       <li class="user-nav__item"><a href="{% url 'store_buyer:cart' %}"><img src="{% static 'buyer/img/cart.png' %}" alt="Корзина" />Корзина</a></li>
     </ul>

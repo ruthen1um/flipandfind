@@ -4,38 +4,49 @@
 {% block extra_css %}
 <link rel="stylesheet" href="{% static 'buyer/css/cart.css' %}">
 {% endblock %}
+{% block extra_js %}
+<script src="{% static 'buyer/js/cart.js' %}"></script>
+{% endblock %}
 {% block content %}
 <div class="wrapper">
   <div class="cart">
     <h2 class="cart__header">Корзина</h2>
-    <!-- TODO: add count -->
-    <p class="cart__subheader"></p>
 
-    <div class="cart__item">
-      <img src="{% static 'buyer/img/placeholder.jpg' %}" alt="Браслет" class="cart__item-image" />
-      <div class="cart__item-details">
-        <p class="cart__item-title">Силиконовый браслет SOLVANOV "Настоящий Волк"</p>
-        <p class="cart__item-color">Черный</p>
-        <p class="cart__item-date">27 января</p>
+    {% if cart_items %}
+      {% for item in cart_items %}
+      <div class="cart__item" data-product-id="{{ item.product_id }}" data-item-id="{{ item.id }}">
+        <img src="{{ item.photo_url }}" alt="{{ item.name }}" class="cart__item-image" />
+        <div class="cart__item-details">
+          <p class="cart__item-title">{{ item.name }}</p>
+          <p class="cart__item-color">Черный</p>
+        </div>
+        <div class="cart__item-actions">
+          <button class="cart__quantity-button cart__quantity-button--minus">−</button>
+          <span class="cart__quantity">{{ item.quantity }}</span>
+          <button class="cart__quantity-button cart__quantity-button--plus">+</button>
+        </div>
+        <div class="cart__item-price">
+          <span class="cart__price">{{ item.line_total }}₽</span>
+        </div>
       </div>
-      <div class="cart__item-actions">
-        <button class="cart__quantity-button cart__quantity-button--minus">−</button>
-        <span class="cart__quantity">1</span>
-        <button class="cart__quantity-button cart__quantity-button--plus">+</button>
-      </div>
-      <div class="cart__item-price">
-        <span class="cart__price">500₽</span>
-      </div>
-    </div>
+      {% endfor %}
+    {% else %}
+      <p>Ваша корзина пуста.</p>
+    {% endif %}
   </div>
 
   <div class="summary">
     <h3 class="summary__header">Выбрать адрес доставки</h3>
-    <p class="summary__item summary__item--product-count">Товар, 1 шт.: <span class="summary__price">500₽</span></p>
-    <p class="summary__total">Итого: <span class="summary__price">58₽</span></p>
-
+    <p class="summary__item summary__item--product-count">
+      <span>Товаров:</span>
+      <span class="summary__price" id="summary-product-count">{{ item_count }}</span>
+    </p>
+    <p class="summary__item summary__item--total">
+      <span>Итого:</span>
+      <span class="summary__price" id="summary-total">{{ total_price }}</span>
+      <span>₽</span>
+    </p>
     <button class="summary__order-button">Заказать</button>
-
     <label class="summary__agreement">
       <input type="checkbox" checked class="summary__agreement-checkbox" /> 
       Соглашаюсь с правилами использования торговой площадкой и возврата
