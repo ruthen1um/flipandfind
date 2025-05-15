@@ -1,7 +1,7 @@
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect
 from django.contrib import auth
-from django.http import HttpRequest, HttpResponseRedirect
-from store.models import User, Product, ProductPhoto
+from django.http import HttpRequest
+from store.models import User
 from functools import wraps
 
 
