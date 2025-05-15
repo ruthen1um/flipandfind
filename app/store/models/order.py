@@ -7,7 +7,7 @@ class Cart(models.Model):
     buyer = models.OneToOneField(
         settings.AUTH_USER_MODEL,
         on_delete=models.CASCADE,
-        limit_choices_to={'role': User.Role.SELLER}
+        limit_choices_to={'role': User.Role.BUYER}
     )
 
     def __str__(self):

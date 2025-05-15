@@ -1,9 +1,11 @@
+from django.views.decorators.http import require_http_methods
+from django.core.exceptions import ObjectDoesNotExist
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import auth
 from django.http import HttpRequest, JsonResponse
 from django.core.paginator import Paginator, EmptyPage
 from django.urls import reverse
-from store.models import User
+from store.models import User, Cart, CartItem
 from functools import wraps
 
 import random
@@ -62,7 +64,7 @@ def catalog(request: HttpRequest):
     })
 
 
-def catalog_api(request):
+def api_catalog(request):
     page = request.GET.get('page', '1')
 
     if not page.isdigit():
@@ -125,8 +127,35 @@ def product(request: HttpRequest, id: int):
 
 
 @login_required_buyer
-def cart(request: HttpRequest):
-    return render(request, "buyer/cart.html")
+def cart(request):
+    try:
+        cart_items = request.user.cart.items.select_related('product').all()
+    except Cart.DoesNotExist:
+        cart_items = []
+
+    total_price = 0
+    extended_cart_items = []
+
+    for item in cart_items:
+        line_total = item.product.price * item.quantity
+        extended_cart_items.append({
+            'id': item.id,
+            'product_id': item.product.id,
+            'name': item.product.name,
+            'price': item.product.price,
+            'quantity': item.quantity,
+            'line_total': line_total,
+            'photo_url': item.product.primary_photo.url if item.product.primary_photo else None
+        })
+        total_price += line_total
+
+    context = {
+        'cart_items': extended_cart_items,
+        'total_price': total_price,
+        'item_count': len(extended_cart_items)
+    }
+
+    return render(request, "buyer/cart.html", context)
 
 
 @login_required_buyer
@@ -141,3 +170,54 @@ def profile(request: HttpRequest):
 
 def page_not_found(request: HttpRequest, exception):
     return render(request, "buyer/404.html", status=404)
+
+
+@login_required_buyer
+@require_http_methods(["POST"])
+def api_add_to_cart(request, product_id):
+    product = get_object_or_404(Product, id=product_id)
+
+    cart, created = Cart.objects.get_or_create(buyer=request.user)
+
+    cart_item, created = CartItem.objects.get_or_create(cart=cart, product=product)
+    if not created:
+        cart_item.quantity += 1
+        cart_item.save()
+
+    return JsonResponse({
+        "status": "ok",
+        "quantity": cart_item.quantity,
+        "line_total": cart_item.product.price * cart_item.quantity
+    })
+
+
+@login_required_buyer
+@require_http_methods(["POST"])
+def api_remove_from_cart(request, product_id):
+    try:
+        cart = Cart.objects.get(buyer=request.user)
+        cart_item = CartItem.objects.get(cart=cart, product_id=product_id)
+        cart_item.delete()
+        return JsonResponse({"status": "ok"})
+    except ObjectDoesNotExist:
+        return JsonResponse({"status": "error", "message": "Item not found"}, status=404)
+
+
+@login_required_buyer
+@require_http_methods(["POST"])
+def api_update_quantity(request, product_id):
+    quantity = int(request.POST.get("quantity", 1))
+    cart = request.user.cart
+    cart_item = get_object_or_404(CartItem, cart=cart, product_id=product_id)
+
+    if quantity <= 0:
+        cart_item.delete()
+        return JsonResponse({"status": "deleted"})
+    else:
+        cart_item.quantity = quantity
+        cart_item.save()
+        return JsonResponse({
+            "status": "ok",
+            "quantity": cart_item.quantity,
+            "line_total": cart_item.product.price * cart_item.quantity
+        })
