@@ -1,7 +1,10 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404
+from django.contrib import auth
 from django.http import HttpRequest, JsonResponse
 from django.core.paginator import Paginator, EmptyPage
 from django.urls import reverse
+from store.models import User
+from functools import wraps
 
 import random
 from store.models.product import Product
@@ -9,6 +12,39 @@ from store.models.product import Product
 PRODUCTS_PER_PAGE = 30
 MAX_FEATURED_PRODUCTS = 4
 MAX_SIMILAR_PRODUCTS = 5
+
+
+def login_required_buyer(view_func):
+    @wraps(view_func)
+    def wrapped_view(request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            return redirect('store_buyer:login')
+        if request.user.role != 'BUYER':
+            return redirect('store_buyer:login')
+        return view_func(request, *args, **kwargs)
+    return wrapped_view
+
+
+def login(request: HttpRequest):
+    if request.method == 'POST':
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+
+        user = auth.authenticate(request, email=email, password=password)
+        if user is not None and user.role == User.Role.BUYER:
+            auth.login(request, user)
+            return redirect('store_buyer:catalog')
+        else:
+            return render(request, 'buyer/login.html', {
+                'error': 'Неверный email или пароль'
+            })
+
+    return render(request, 'buyer/login.html')
+
+
+def logout(request: HttpRequest):
+    auth.logout(request)
+    return redirect('store_buyer:login')
 
 
 def catalog(request: HttpRequest):
@@ -31,14 +67,11 @@ def catalog_api(request):
 
     if not page.isdigit():
         return JsonResponse({'error': 'Invalid page number'}, status=400)
-    
-    # --- Step 1: Get all product IDs ---
+
     all_product_ids = list(Product.objects.values_list('id', flat=True))
 
-    # --- Step 2: Generate or reuse a shuffled list ---
     session = request.session
 
-    # If this is a new visit or reload, regenerate the shuffled list
     if 'current_shuffle' not in session:
         shuffled_ids = all_product_ids[:]
         random.shuffle(shuffled_ids)
@@ -47,7 +80,6 @@ def catalog_api(request):
     else:
         shuffled_ids = session['current_shuffle']
 
-    # --- Step 3: Paginate the consistent shuffled list ---
     paginator = Paginator(shuffled_ids, PRODUCTS_PER_PAGE)
 
     try:
@@ -55,10 +87,8 @@ def catalog_api(request):
     except EmptyPage:
         return JsonResponse({'products': [], 'has_next': False})
 
-    # --- Step 4: Load only current page's products from DB ---
     products_on_page = Product.objects.filter(id__in=page_obj.object_list).in_bulk()
 
-    # --- Step 5: Build response in correct order ---
     products_data = []
     for pid in page_obj.object_list:
         product = products_on_page[pid]
@@ -94,18 +124,17 @@ def product(request: HttpRequest, id: int):
     })
 
 
-def login(request: HttpRequest):
-    return render(request, "buyer/login.html")
-
-
+@login_required_buyer
 def cart(request: HttpRequest):
     return render(request, "buyer/cart.html")
 
 
+@login_required_buyer
 def orders(request: HttpRequest):
     return render(request, "buyer/orders.html")
 
 
+@login_required_buyer
 def profile(request: HttpRequest):
     return render(request, "buyer/profile.html")
 
