@@ -9,16 +9,17 @@
   <div class="container__title">Мои данные</div>
 
   <div class="profile-sections">
-    <div class="profile-sections__item" onclick="goToAddress()">
+    <div class="profile-sections__item">
       <div class="profile-sections__name">Адрес</div>
       <div class="profile-sections__text">
         <p>Г. Москва Ул. Малыгина д...</p>
       </div>
     </div>
-    <div class="profile-sections__item" onclick="goToPurchases()">
-      <div class="profile-sections__name">Покупки</div>
-      <p class="profile-sections__action">Смотреть</p>
-    </div>
+    <a href="{% url 'store_buyer:logout' %}" >
+      <div class="profile-sections__item">
+          <p class="profile-sections__action">Выйти</p>
+      </div>
+    </a>
   </div>
 
   <div class="waiting-review">
