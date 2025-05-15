@@ -1,4 +1,5 @@
 from django.contrib import admin
+from django.contrib.auth.admin import UserAdmin
 from . import models
 
 
@@ -113,6 +114,6 @@ admin.site.register(models.Cart)
 admin.site.register(models.CartItem)
 admin.site.register(models.Card)
 admin.site.register(models.Payment)
-admin.site.register(models.User)
+admin.site.register(models.User, UserAdmin)
 admin.site.register(models.BuyerProfile)
 admin.site.register(models.SellerProfile)
