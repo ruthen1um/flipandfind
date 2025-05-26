@@ -1,52 +1,53 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="ru">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Flip & Find</title>
-  <link rel="icon" href="{% static 'favicon.png' %}" type="image/png" />
-  <link rel="stylesheet" href="{% static 'seller/css/main.css' %}" />
-  <link rel="stylesheet" href="{% static 'seller/css/login.css' %}" />
-</head>
-<body class="login-page">
-  <div class="login-container">
-    <h1 class="login-container__title">Flip & Find</h1>
-    <p class="login-container__subtitle">Вход в партнерскую программу</p>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ site_name }}</title>
+    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png" />
+    <link rel="stylesheet" href="{% static 'seller/css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'seller/css/login.css' %}" />
+  </head>
+  <body class="login-page">
+    <div class="login-container">
+      <h1 class="login-container__title">{{ site_name }}</h1>
+      <p class="login-container__subtitle">Вход в партнерскую программу</p>
 
-    <div class="login-form">
-      <p class="login-form__description">Введите почту и пароль, чтобы войти</p>
+      <div class="login-form">
+        <p class="login-form__description">Введите почту и пароль, чтобы войти</p>
 
-      <form class="login-form__form" method="post">
-        {% csrf_token %}
+        <form class="login-form__form" method="post">
+          {% csrf_token %}
 
-        <div class="login-form__input-group">
-          <input
-            type="email"
-            id="email"
-            name="email"
-            class="login-form__email-input"
-            placeholder="Почта"
-            required
-          />
-        </div>
-        <div class="login-form__input-group">
-          <input
-            type="password"
-            id="password"
-            name="password"
-            class="login-form__password-input"
-            placeholder="Пароль"
-            required
-          />
-        </div>
-        <button type="submit" class="login-form__submit-btn">Войти</button>
-      </form>
+          <div class="login-form__input-group">
+            <input
+                type="email"
+                id="email"
+                name="email"
+                class="login-form__email-input"
+                placeholder="Почта"
+                required
+                />
+          </div>
+          <div class="login-form__input-group">
+            <input
+                type="password"
+                id="password"
+                name="password"
+                class="login-form__password-input"
+                placeholder="Пароль"
+                required
+                />
+          </div>
+          <button type="submit" class="login-form__submit-btn">Войти</button>
+        </form>
 
-      {% if error %}
+        {% if error %}
         <p class="login-form__error">{{ error }}</p>
-      {% endif %}
+        {% endif %}
+        <button type="button" class="login-form__auth-btn" onclick="location.href='{% url 'store_seller:registration' %}'">Регистрация</button>
+      </div>
     </div>
-  </div>
-</body>
+  </body>
 </html>
