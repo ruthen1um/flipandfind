@@ -1,0 +1,63 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ site_name }}</title>
+    <link rel="icon" href="{% static 'favicon.png' %}" type="image/png" />
+    <link rel="stylesheet" href="{% static 'seller/css/main.css' %}" />
+    <link rel="stylesheet" href="{% static 'seller/css/registration.css' %}" />
+  </head>
+  <body class="auth-page">
+    <div class="auth-container">
+      <h1 class="auth-container__title">{{ site_name }}</h1>
+      <p class="auth-container__subtitle">Регистрация в партнерской программе</p>
+
+      <div class="auth-form">
+        <p class="auth-form__description">Введите номер телефона, чтобы зарегистрироваться</p>
+
+        <form class="auth-form__form" method="post">
+          {% csrf_token %}
+
+          <div class="auth-form__input-group">
+            <input
+                type="email"
+                id="email"
+                name="email"
+                class="auth-form__email-input"
+                placeholder="Почта"
+                required
+                />
+          </div>
+          <div class="auth-form__input-group">
+            <input
+                type="password"
+                id="password1"
+                name="password1"
+                class="auth-form__password-input"
+                placeholder="Пароль"
+                required
+                />
+          </div>
+          <div class="auth-form__input-group">
+            <input
+                type="password"
+                id="password2"
+                name="password2"
+                class="auth-form__password-input"
+                placeholder="Подтвердите пароль"
+                required
+                />
+          </div>
+          <button type="submit" class="auth-form__submit-btn">Регистрация</button>
+        </form>
+
+        {% if error %}
+        <p class="auth-form__error">{{ error }}</p>
+        {% endif %}
+        <button type="button" class="auth-form__login-btn" onclick="location.href='{% url 'store_seller:login' %}'">Войти</button>
+      </div>
+    </div>
+  </body>
+</html>

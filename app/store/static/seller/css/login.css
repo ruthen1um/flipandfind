@@ -116,3 +116,16 @@
 .login-container__subtitle {
   font-size: 1.1rem;
 }
+
+.login-form__auth-btn {
+    margin-top: 20px;
+    background: transparent;
+    border: none;
+    outline: none;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: color 0.3s ease;
+    padding-top:10px ;
+}
