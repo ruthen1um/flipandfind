@@ -36,6 +36,33 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     });
 
+        document.querySelectorAll(".cart__item-date-btn").forEach(button => {
+        button.addEventListener("click", function () {
+            const productDiv = this.closest(".cart__item");
+            const productId = productDiv.dataset.productId;
+
+            if (!confirm("Вы уверены, что хотите удалить этот товар из корзины?")) {
+                return;
+            }
+
+            fetch(`/api/cart/remove/${productId}/`, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/x-www-form-urlencoded",
+                    "X-CSRFToken": getCookie("csrftoken")
+                }
+            }).then(response => response.json())
+              .then(data => {
+                  if (data.status === "ok") {
+                      productDiv.remove();
+                      updateTotals();
+                  } else {
+                      alert("Ошибка при удалении товара.");
+                  }
+              });
+        });
+    });
+
     function updateTotals() {
         let total = 0;
         let count = 0;
