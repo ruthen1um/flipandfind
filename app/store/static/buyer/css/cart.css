@@ -15,6 +15,10 @@ body {
   border-radius: 8px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  flex: 1;
+  position: sticky;
+  top: 20px;
+  align-self: flex-start;
 }
 
 .cart {
@@ -40,6 +44,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-top: 30px;
 }
 
 .cart__item-image {
@@ -81,15 +86,6 @@ body {
   background-color: #bbb;
 }
 
-.cart__quantity-button--minus,
-.cart__quantity-button--plus {
-  /* Optional: custom styling for + / - */
-}
-
-.cart__quantity {
-  margin: 0 10px;
-}
-
 .cart__item-price {
   text-align: right;
 }
@@ -107,7 +103,6 @@ body {
   font-size: 16px;
   display: flex;
   justify-content: space-between;
-  align-items: center;
 }
 
 .summary__item > span:first-child {
@@ -150,4 +145,22 @@ body {
 
 .summary__agreement-checkbox {
   margin-right: 5px;
+}
+
+.summary__price {
+    text-align: right;
+}
+
+.cart__item-date-btn {
+    background: transparent;   /* Прозрачный фон */
+    border: none;              /* Без рамки */
+    padding: 0;                /* Без внутренних отступов */
+    margin: 0;                 /* Без внешних отступов */
+    cursor: pointer;           /* Курсор-указатель при наведении */
+    outline: none;             /* Без обводки при фокусе */
+    box-shadow: none;          /* Без теней */
+    display: inline-block;     /* Корректное отображение */
+    transform: scale(0.7);
+    position: relative;  /* включаем относительное позиционирование */
+    left: -10px;         /* сдвигаем элемент влево на 10 пикселей */
 }

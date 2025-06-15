@@ -19,14 +19,17 @@
         <div class="cart__item-details">
           <p class="cart__item-title">{{ item.name }}</p>
           <p class="cart__item-color">Черный</p>
+          <button class="cart__item-date cart__item-date-btn" type="button">
+            <img src="{% static 'buyer/img/trash.png' %}" alt="Удалить" />
+          </button>
+        </div>
+        <div class="cart__item-price">
+          <span class="cart__price">{{ item.line_total }}₽</span>
         </div>
         <div class="cart__item-actions">
           <button class="cart__quantity-button cart__quantity-button--minus">−</button>
           <span class="cart__quantity">{{ item.quantity }}</span>
           <button class="cart__quantity-button cart__quantity-button--plus">+</button>
-        </div>
-        <div class="cart__item-price">
-          <span class="cart__price">{{ item.line_total }}₽</span>
         </div>
       </div>
       {% endfor %}
